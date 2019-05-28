@@ -16,6 +16,8 @@ passport.deserializeUser((id, done) => {
     });
 });
 
+console.log("use that googggglle")
+
 passport.use(
   new GoogleStrategy({
     clientID: keys.googleClientID,
@@ -25,6 +27,7 @@ passport.use(
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
   async (accessToken, refreshToken, profile, done) => {
+    console.log(profile);
     const existingUser = await User.findOne({
       googleId: profile.id
     });

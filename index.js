@@ -7,14 +7,14 @@ const keys = require('./config/keys');
 require('./models/user');
 require('./models/item');
 require('./models/pantry');
+require('./services/passport.js');
 
 mongoose.connect(keys.mongoURI);
 
 const app = express();
 
 app.use(bodyParser.json());
-app.use(cookieSession({ maxAge: 30 * 24 * 3600000, keys: [keys.cookieKey]})
-);
+app.use(cookieSession({ maxAge: 2592000000, keys: [keys.cookieKey] }));
 app.use(passport.initialize());
 app.use(passport.session());
 
