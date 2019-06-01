@@ -6,7 +6,7 @@ export default () => {
     <div>
       Dashboard
       <div className="fixed-action-btn">
-        <Link to="/pantry/new" className="btn-floating btn-large red">
+        <Link to="/item/new" className="btn-floating btn-large green">
           <i className="material-icons">add</i>
         </Link>
       </div>

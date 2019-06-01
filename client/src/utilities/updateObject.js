@@ -1,0 +1,1 @@
+export default (oldObject, updatededProperties) => ({ ...oldObject, ...updatededProperties });
