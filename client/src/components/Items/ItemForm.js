@@ -11,7 +11,7 @@ class ItemForm extends Component {
       <Field key={name} component={ItemField} type="text" label={label} name={name} />
     );
   }
-  
+
   render() {
     return (
       <div>
@@ -29,8 +29,8 @@ class ItemForm extends Component {
 
 function validate(values) {
   const errors = {};
-  _.each(formFields, ({ name, value }) => {
-    if (!values[name] || values[value].trim() === "") {
+  _.each(formFields, ({ name }) => {
+    if (!values[name] || values[name].trim() === "") {
       errors[name] = name + " is a required field";
     }
   });

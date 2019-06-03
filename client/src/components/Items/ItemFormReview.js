@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import * as actions from '../../actions/';
 
-const itemFormReview = ({ onCancel, formValues, submitItem, history }) => {
+const itemFormReview = ({ onCancel, formValues, createItem, token }) => {
+  console.log(token);
   const reviewFields = _.map(formFields, ({ name, label }) => (
     <div key={name}>
       <label>{label}</label>
@@ -18,11 +19,11 @@ const itemFormReview = ({ onCancel, formValues, submitItem, history }) => {
     <div>
       <h5>Please confirm your entries</h5>
       {reviewFields}
-      <button className="amber accent-4 white-text right" onClick={onCancel}>
+      <button className="amber accent-4 btn-flat white-text" onClick={onCancel}>
         Back
       </button>
       <button
-        onClick={() => submitItem(formValues, history)}
+        onClick={() => createItem(formValues, token)}
         className = "#00e676 green accent-3 btn-flat white-text right">
         Submit Item
       </button>
@@ -30,8 +31,8 @@ const itemFormReview = ({ onCancel, formValues, submitItem, history }) => {
   );
 }
 
-function mapStateToProps({ form }) {
-  return { formValues: form.itemForm.values }
+function mapStateToProps({ form, auth }) {
+  return { formValues: form.itemForm.values, token: auth._id }
 }
 
 export default connect(mapStateToProps, actions)(withRouter(itemFormReview));

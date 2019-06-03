@@ -26,7 +26,7 @@ export const getItems = () => async dispatch => {
   dispatch(itemStart());
   try {
     const res = await axios.get('/api/items'/*, { headers: { Authorization: "Bearer " + token } }*/);
-    console.log("\n\n\nGET_ITEMS_RESPONSE_DATA:\n" + res);
+    console.log("\n\n\nGET_ITEMS_RESPONSE_DATA:\n" + JSON.stringify(res));
     const items = fetchedItems(res.data.items);
     console.log("\n\nFETCHED_ITEMS:\n" + items);
     dispatch(getItemsSuccess(items));
@@ -37,7 +37,7 @@ export const getItems = () => async dispatch => {
   }
 }
 
-export const createItem = ({ item, token }) => async dispatch => {
+export const createItem = (item, token) => async dispatch => {
   dispatch(itemStart());
   try {
     const res = await axios.post('/api/items', { item, headers: { Authorization: "Bearer " + token } });

@@ -34,15 +34,15 @@ class Items extends Component {
       ));
     }
 
-    if (!this.props.items) {
-      items = null;
-    }
+    // if (!this.props.items) {
+    //   items = null;
+    // }
 
     return (
       <div>
         <div className="fixed-action-btn">
           <Link to="/items/new" className="btn-floating btn-large green">
-            <i className="material-icons">Add</i>
+            <i className="material-icons">add</i>
           </Link>
         </div>
         {items}
