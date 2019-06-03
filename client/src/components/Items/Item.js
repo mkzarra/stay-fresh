@@ -1,5 +1,6 @@
 import React from 'react';
 
+import translateDate from '../../utilities/translateDate';
 import classes from './Item.module.css';
 
 export default ({ itemName, category, storage, datePurchased, exp, onList, id, addToPantry, removeFromPantry, showItemEdit }) => {
@@ -15,14 +16,14 @@ export default ({ itemName, category, storage, datePurchased, exp, onList, id, a
   );
 
   const showEditItemForm = onList ? <button className="#1de9b6 teal accent-3"></button> : null;
-
+  
   return (
     <div className={classes.Item}>
-      <p><strong>{itemName}</strong></p>
+      <h5><strong>{itemName}</strong></h5>
       <p>Storage: {storage}</p>
       <p>Category: {category}</p>
-      <p>Expiration: {exp}</p>
-      <p>Purchased on: {datePurchased}</p>
+      <p>Expiration: {translateDate(exp)}</p>
+      {onList ? <p>Purchased on: {translateDate(datePurchased)}</p> : null}
       {listAction}
       {showEditItemForm}
     </div>

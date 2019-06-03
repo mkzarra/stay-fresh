@@ -8,6 +8,7 @@ import Spinner from '../UI/Spinner';
 
 class Items extends Component {
   componentDidMount() {
+    console.log(this.props.items);
     this.props.onGetItems();
   }
 
@@ -22,11 +23,11 @@ class Items extends Component {
     if (!this.props.loading) {
       items = this.props.items.map(item => (
         <Item
-          key={item.id}
+          key={item._id}
           itemName={item.itemName}
           storage={item.storage}
           category={item.category}
-          exp={item.exp}
+          exp={item.expiration}
           datePurchased={item.datePurchased}
           onList={item.onList}
           addToPantry={this.addItemToPantry}
@@ -39,7 +40,7 @@ class Items extends Component {
     // }
 
     return (
-      <div>
+      <div style={{ marginTop: "60px" }}>
         <div className="fixed-action-btn">
           <Link to="/items/new" className="btn-floating btn-large green">
             <i className="material-icons">add</i>

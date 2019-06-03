@@ -25,10 +25,13 @@ export const updateItemFail = (error) => ({ type: UPDATE_ITEM_FAIL, error });
 export const getItems = () => async dispatch => {
   dispatch(itemStart());
   try {
-    const res = await axios.get('/api/items'/*, { headers: { Authorization: "Bearer " + token } }*/);
-    console.log("\n\n\nGET_ITEMS_RESPONSE_DATA:\n" + JSON.stringify(res));
+    const res = await axios.get('/api/items');
+    // const items = [];
+    // for (let key in res.data.items) {
+    //   items.push({ ...res.data.items[key], id: key });
+    // }
     const items = fetchedItems(res.data.items);
-    console.log("\n\nFETCHED_ITEMS:\n" + items);
+    console.log("\n\nFETCHED_ITEMS:\n" + JSON.stringify(items));
     dispatch(getItemsSuccess(items));
   }
   catch(error) {

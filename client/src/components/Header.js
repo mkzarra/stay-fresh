@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+
 import Payments from './Payments';
 
 class Header extends Component {
@@ -19,7 +20,6 @@ class Header extends Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <nav>
         <div className="nav-wrapper green">
