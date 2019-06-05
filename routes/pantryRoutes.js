@@ -2,13 +2,10 @@ const mongoose = require('mongoose');
 const requireLogin = require('../middlewares/requireLogin');
 
 const Pantry = mongoose.model('pantries');
-const Item = mongoose.model('items');
-
 
 module.exports = app => {
   app.get('/api/pantry', requireLogin, async (req, res) => {
     try {
-      // get items associated with currentUser
       const pantry = await Pantry.find({ _user: req.user._id });
       console.log("\n\nPantry items associated with user:\n" + pantry);
       res.status(200).json({ pantry });
