@@ -9,7 +9,11 @@ import {
   DELETE_ITEM_SUCCESS,
   DELETE_ITEM_FAIL,
   UPDATE_ITEM_SUCCESS,
-  UPDATE_ITEM_FAIL
+  UPDATE_ITEM_FAIL,
+  ADD_TO_PANTRY_SUCCESS,
+  ADD_TO_PANTRY_FAIL,
+  REMOVE_FROM_PANTRY_SUCCESS,
+  REMOVE_FROM_PANTRY_FAIL
 } from './types';
 
 export const itemStart = () => ({ type: ITEMS_START });
@@ -21,15 +25,16 @@ export const deleteItemSuccess = (items) => ({ type: DELETE_ITEM_SUCCESS, items 
 export const deleteItemFail = (error) => ({ type: DELETE_ITEM_FAIL, error });
 export const updateItemSuccess = (items) => ({ type: UPDATE_ITEM_SUCCESS, items });
 export const updateItemFail = (error) => ({ type: UPDATE_ITEM_FAIL, error });
+export const addToPantrySuccess = (pantry) => ({ type: ADD_TO_PANTRY_SUCCESS, pantry });
+export const addToPantryFail = (error) => ({ type: ADD_TO_PANTRY_FAIL, error });
+export const removeFromPantrySuccess = (pantry) => ({ type: REMOVE_FROM_PANTRY_SUCCESS, pantry });
+export const removeFromPantryFail = (error) => ({ type: REMOVE_FROM_PANTRY_FAIL, error });
+
 
 export const getItems = () => async dispatch => {
   dispatch(itemStart());
   try {
     const res = await axios.get('/api/items');
-    // const items = [];
-    // for (let key in res.data.items) {
-    //   items.push({ ...res.data.items[key], id: key });
-    // }
     const items = fetchedItems(res.data.items);
     console.log("\n\nFETCHED_ITEMS:\n" + JSON.stringify(items));
     dispatch(getItemsSuccess(items));
@@ -43,7 +48,9 @@ export const getItems = () => async dispatch => {
 export const createItem = (item, token) => async dispatch => {
   dispatch(itemStart());
   try {
-    const res = await axios.post('/api/items', { item, headers: { Authorization: "Bearer " + token } });
+    const res = await axios.post('/api/items', {
+      item, headers: { Authorization: "Bearer " + token }
+    });
     console.log("\n\n\nCREATE_ITEM_RESPONSE_DATA:\n" + res.data);
     dispatch(createItemSuccess(res.data.item));
   }
@@ -53,10 +60,12 @@ export const createItem = (item, token) => async dispatch => {
   }
 }
 
-export const deletItem = ({ itemId, token }) => async dispatch => {
+export const deleteItem = (itemId, token) => async dispatch => {
   dispatch(itemStart());
   try {
-    const res = await axios.delete('/api/items' + itemId, { headers: { Authorization: "Bearer " + token } });
+    const res = await axios.delete('/api/items' + itemId, {
+      headers: { Authorization: "Bearer " + token }
+    });
     console.log("\n\n\nDELETE_ITEM_RESPONSE_DATA:\n" + res.data);
     dispatch(deleteItemSuccess(res.data.item.id));
   }
@@ -66,7 +75,7 @@ export const deletItem = ({ itemId, token }) => async dispatch => {
   }
 }
 
-export const updateItem = ({ itemId, token }) => async dispatch => {
+export const updateItem = (itemId, token) => async dispatch => {
   dispatch(itemStart());
   try {
     const res = await axios.patch('/items/' + itemId, { headers: { Authorization: "Bearer " + token } });
@@ -76,5 +85,36 @@ export const updateItem = ({ itemId, token }) => async dispatch => {
   catch(error) {
     console.log(error);
     dispatch(updateItemFail(error));
+  }
+}
+
+export const addToPantry = (currentUser, itemId) => async dispatch => {
+  console.log("\n\naddToPantry itemActions.js:\ncurrentUser = " + currentUser)
+  dispatch(itemStart());
+  try {
+    const res = await axios.post('/api/pantry/', {
+      _user: currentUser, _item: itemId, headers: { Authorization: "Bearer " + currentUser }
+    });
+    console.log(res.data);
+    dispatch(addToPantrySuccess(res.data.pantry.itemId));
+  }
+  catch(error) {
+    console.log(error);
+    dispatch(addToPantryFail(error));
+  }
+}
+
+export const removeFromPantry = (currentUser, pantryItem) => async dispatch => {
+  dispatch(itemStart());
+  try {
+    const res = await axios.delete('/api/pantry/' + pantryItem.key, {
+      headers: { Authorization: "Bearer " + currentUser }
+    });
+    console.log("\n\nRemove From Pantry" + res.data);
+    dispatch(removeFromPantrySuccess(res.data.pantry._id));
+  }
+  catch(error) {
+    console.log(error);
+    dispatch(removeFromPantryFail(error));
   }
 }

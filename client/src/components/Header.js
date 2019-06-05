@@ -2,21 +2,23 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Payments from './Payments';
-
 class Header extends Component {
+  componentDidMount(){
+    console.log("\n\nthis.props.currentUser Header.js:\n" + this.props.currentUser);
+  }
   renderContent() {
-    switch (this.props.auth) {
-      case null: return;
-      case false: return <li><a href="/auth/google">Login With Google</a></li>;
-      default: return [
-        <li key="1"><Payments /></li>,
-        <li key="3" style={{margin: '0 10px'}}>
-          Credits: {this.props.auth.credits}
+    return this.props.currentUser ?
+     [
+        <li key="1">
+          <Link to="/pantry">
+            <strong>
+              My Pantry
+            </strong>
+          </Link>
         </li>,
         <li key="2"><a href="/api/logout">Logout</a></li>
-      ];
-    }
+      ]
+    : <li><a href="/auth/google">Login With Google</a></li>
   }
 
   render() {
@@ -38,8 +40,6 @@ class Header extends Component {
   }
 }
 
-function mapStateToProps({ auth }) {
-  return { auth }
-};
+const mapStateToProps = ({ auth }) => ({ auth });
 
 export default connect(mapStateToProps)(Header);

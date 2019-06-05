@@ -1,8 +1,13 @@
 import { FETCH_USER } from '../actions/types';
 
-export default function (state = null, { type, payload }) {
+const initialState = {
+  payload: null,
+  currentUser: null
+}
+
+export default function (state = initialState, { type, payload, currentUser }) {
   switch (type) {
-    case FETCH_USER: return payload || false;
+    case FETCH_USER: return { payload, currentUser } || false;
     default: return state;
   }
 }

@@ -1,3 +1,3 @@
 export { fetchUser, handleToken } from './userActions';
-export { itemStart, getItems, createItem, deletItem } from './itemActions';
-export { pantryStart, getPantry, createPantry, addToPantry, removeFromPantry } from './pantryActions';
+export { itemStart, getItems, createItem, deleteItem, updateItem, addToPantry, removeFromPantry } from './itemActions';
+export { pantryStart, getPantry, getPantryItem } from './pantryActions';

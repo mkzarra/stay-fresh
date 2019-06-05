@@ -5,7 +5,7 @@ const Item = mongoose.model('items');
 module.exports = app => {
   app.get('/api/items', async (req, res) => {
     try {
-      const items = await Item.find()
+      const items = await Item.find();
       console.log(items);
       res.status(200).json({ items });
     }

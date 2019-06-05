@@ -8,7 +8,11 @@ import {
   DELETE_ITEM_SUCCESS,
   DELETE_ITEM_FAIL,
   UPDATE_ITEM_SUCCESS,
-  UPDATE_ITEM_FAIL
+  UPDATE_ITEM_FAIL,
+  ADD_TO_PANTRY_SUCCESS,
+  ADD_TO_PANTRY_FAIL,
+  REMOVE_FROM_PANTRY_SUCCESS,
+  REMOVE_FROM_PANTRY_FAIL
 } from '../actions/types';
 
 const initialState = {
@@ -27,6 +31,11 @@ const deleteItemSuccess = (state, { items }) => updateObject(state, { items, loa
 const deleteItemFail = (state, { error }) => updateObject (state, { error, loading: false });
 const updateItemSuccess = (state, { items }) => updateObject(state, { items, loading: false });
 const updateItemFail = (state, { error }) => updateObject(state, { error, loading: false });
+const addToPantrySuccess = (state, { onList }) => updateObject(state, { onList, loading: false });
+const addToPantryFail = (state, { error }) => updateObject(state, { error, loading: false });
+const removeFromPantrySuccess = (state, { onList }) => updateObject(state, { onList, loading: false });
+const removeFromPantryFail = (state, { error }) => updateObject(state, { error, loading: false });
+
 
 export default function (state = initialState, action) {
   switch(action.type) {
@@ -39,6 +48,10 @@ export default function (state = initialState, action) {
     case DELETE_ITEM_FAIL: return deleteItemFail(state, action);
     case UPDATE_ITEM_SUCCESS: return updateItemSuccess(state, action);
     case UPDATE_ITEM_FAIL: return updateItemFail(state, action);
+    case ADD_TO_PANTRY_SUCCESS: return addToPantrySuccess(state, action);
+    case ADD_TO_PANTRY_FAIL: return addToPantryFail(state, action);
+    case REMOVE_FROM_PANTRY_SUCCESS: return removeFromPantrySuccess(state, action);
+    case REMOVE_FROM_PANTRY_FAIL: return removeFromPantryFail(state, action);
     default: return state;
   }
 }

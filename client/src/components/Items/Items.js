@@ -8,12 +8,13 @@ import Spinner from '../UI/Spinner';
 
 class Items extends Component {
   componentDidMount() {
-    console.log(this.props.items);
     this.props.onGetItems();
   }
 
-  addItemToPantry = () => {
-    const currentUser = this.props.onFetchUser();
+  addItemToPantry = (itemId) => {
+    const currentUser = this.props.currentUser;
+    console.log("\n\nItems.js addItemToPantry:\ncurrentUser = " + currentUser);
+    this.props.onAddToPantry(currentUser, itemId);
     console.log(currentUser);
   }
 
@@ -29,15 +30,14 @@ class Items extends Component {
           category={item.category}
           exp={item.expiration}
           datePurchased={item.datePurchased}
-          onList={item.onList}
-          addToPantry={this.addItemToPantry}
+          addToPantry={() => this.addItemToPantry(item._id)}
         />
       ));
     }
 
-    // if (!this.props.items) {
-    //   items = null;
-    // }
+    if (!this.props.items) {
+      items = <h4>Unable to load items</h4>;
+    }
 
     return (
       <div style={{ marginTop: "60px" }}>
@@ -52,16 +52,17 @@ class Items extends Component {
   }
 }
 
-const mapStateToProps = ({ items }) => ({
+const mapStateToProps = ({ items, auth }) => ({
   items: items.items,
   loading: items.loading,
   error: items.error,
+  onList: items.onList,
+  currentUser: auth.currentUser
 });
 
 const mapDispatchToProps = dispatch => ({
   onGetItems: () => dispatch(actions.getItems()),
-  onAddToPantry: (data) => dispatch(actions.addToPantry(data)),
-  onFetchUser: () => dispatch(actions.fetchUser())
+  onAddToPantry: (currentUser, itemId) => dispatch(actions.addToPantry(currentUser, itemId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Items);

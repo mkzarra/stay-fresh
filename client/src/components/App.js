@@ -5,7 +5,7 @@ import * as actions from '../actions';
 
 import Header from './Header';
 import Landing from './Landing';
-import Dashboard from './Dashboard';
+import Pantry from './Pantry/Pantry';
 import Items from './Items/Items';
 import NewItem from './Items/NewItem';
 
@@ -17,10 +17,10 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <Header />
+        <Header currentUser={this.props.currentUser} />
         <div className="container">
           <Route exact path="/" component={Landing} />
-          <Route exact path="/pantry" component={Dashboard} />
+          <Route exact path="/pantry" component={Pantry} />
           <Route exact path="/items" component={Items} />
           <Route path="/items/new" component={NewItem} />
         </div>
@@ -29,4 +29,6 @@ class App extends Component {
   }
 }
 
-export default connect(null, actions)(App);
+const mapStateToProps = ({ auth }) => ({ currentUser: auth.currentUser });
+
+export default connect(mapStateToProps, actions)(App);
