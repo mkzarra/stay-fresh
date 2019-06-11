@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import { reduxForm } from 'redux-form';
+import { Link } from 'react-router-dom';
 import Spinner from '../UI/Spinner';
 import Item from '../Items/Item';
 import * as actions from '../../actions';
 
 class Pantry extends Component {
-  removeFromPantryHandler = (event, pantryItem) => {
-    event.preventDefault();
+  removeFromPantryHandler = (pantryItem) => {
     this.props.onRemoveFromPantry(this.props.currentUser, pantryItem);
   }
 
   handleGetOnePantryItem = (pantryItem) => {
-    this.props.getPantryItem(this.props.currentUser, pantryItem)
+    this.props.getPantryItem(this.props.currentUser, pantryItem);
   }
 
   componentDidMount() {
@@ -20,18 +20,20 @@ class Pantry extends Component {
   }
 
   render() {
-    let items = <Spinner />
-
-    const pantryItems = [];
-
-    this.props.pantry.forEach(p => this.props.items.forEach(i => {
+    const { pantry, items, loading, handleSubmit } = this.props;
+    let pantryItems = <Spinner />
+    const listItems = [];
+    const pantryArr = pantry ? Object.keys(pantry).map(p => pantry[p]) : [];
+    const itemArr = items ? Object.keys(items).map(i => items[i]) : [];
+    
+    pantryArr.forEach(p => itemArr.forEach(i => {
        if (p._item === i._id) {
-         return pantryItems.push({ ...i, key: p._id});
+         return listItems.push({ ...i, key: p._id });
        }
     }));
 
-    if (!this.props.loading) {
-      items = pantryItems.map(item => (
+    if (!loading) {
+      pantryItems = listItems.map(item => (
         <Item
           key={item.key}
           id={item.key}
@@ -41,25 +43,33 @@ class Pantry extends Component {
           exp={item.expiration}
           onList={true}
           datePurchased={item.datePurchased}
-          removeFromPantry={(event) => this.removeFromPantryHandler(event, item)}
+          removeFromPantry={handleSubmit(() => this.removeFromPantryHandler(item))}
         />
       ));
     }
 
+    if (this.props.currentUser && !pantryArr.length && !loading) {
+      pantryItems = (
+        <>
+          <h3>Your pantry is empty!</h3>
+          <Link to="/items">Browse Items</Link>
+        </>
+      );
+    }
     return (
-      <div style={{ marginTop: "60px" }}>
-        {items}
+      <div style={{ marginTop: "60px", textAlign: "center" }}>
+        {pantryItems}
       </div>
-    )
+    );
   }
 }
 
-const mapStateToProps = ({ items, pantry, auth }) => ({
-  items: items.items,
-  pantry: pantry.pantry,
-  loading: pantry.loading,
-  error: pantry.error,
-  currentUser: auth.currentUser
+const mapStateToProps = (state) => ({
+  items: state.items.items,
+  pantry: state.pantry.pantry,
+  loading: state.pantry.loading,
+  error: state.pantry.error,
+  currentUser: state.auth.currentUser
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -69,4 +79,4 @@ const mapDispatchToProps = dispatch => ({
   onGetPantryItem: (currentUser, pantryItem) => dispatch(actions.getPantryItem(currentUser, pantryItem))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Pantry);
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'pantryForm' })(Pantry));

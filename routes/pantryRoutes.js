@@ -34,6 +34,7 @@ module.exports = app => {
     console.log("\n\nPost Item To Pantry Request Body:\n" + JSON.stringify(pantry));
     try {
       await pantry.save();
+      res.sendStatus(200);
     }
     catch(error) {
       console.log("\nError creating new pantry:\n" + error);
@@ -46,10 +47,11 @@ module.exports = app => {
     try {
       const pantry = await Pantry.findById(req.params.id)
       pantry.remove();
+      res.sendStatus(200);
     }
     catch(error) {
       console.log("\nError deleting pantry:\n" + error);
-      res.status(500).send(error);
+      res.status(404).send(error);
     }
   });
 }

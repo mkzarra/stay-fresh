@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import * as actions from '../../actions/';
 
-const itemFormReview = ({ onCancel, formValues, createItem, token }) => {
-  console.log(token);
+const itemFormReview = ({ onCancel, formValues, createItem, token, history }) => {
+  console.log("\n\nitemFormReview:\nhistory = " + history);
   const reviewFields = _.map(formFields, ({ name, label }) => (
     <div key={name}>
       <label>{label}</label>
@@ -16,18 +16,18 @@ const itemFormReview = ({ onCancel, formValues, createItem, token }) => {
     </div>
   ));
   return (
-    <div>
+    <>
       <h5>Please confirm your entries</h5>
       {reviewFields}
       <button className="amber accent-4 btn-flat white-text" onClick={onCancel}>
         Back
       </button>
       <button
-        onClick={() => createItem(formValues, token)}
+        onClick={() => createItem(formValues, token, history)}
         className = "#00e676 green accent-3 btn-flat white-text right">
         Submit Item
       </button>
-    </div>
+    </>
   );
 }
 

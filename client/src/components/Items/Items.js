@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { reduxForm } from 'redux-form';
 
 import * as actions from '../../actions';
 import Item from './Item';
@@ -11,11 +12,8 @@ class Items extends Component {
     this.props.onGetItems();
   }
 
-  addItemToPantry = (itemId) => {
-    const currentUser = this.props.currentUser;
-    console.log("\n\nItems.js addItemToPantry:\ncurrentUser = " + currentUser);
-    this.props.onAddToPantry(currentUser, itemId);
-    console.log(currentUser);
+  addItemToPantry = (itemId, itemName) => {
+    this.props.onAddToPantry(this.props.currentUser, itemId, this.props.items, itemName + " added to pantry");
   }
 
   render() {
@@ -30,7 +28,7 @@ class Items extends Component {
           category={item.category}
           exp={item.expiration}
           datePurchased={item.datePurchased}
-          addToPantry={() => this.addItemToPantry(item._id)}
+          addToPantry={this.props.handleSubmit(() => this.addItemToPantry(item._id, item.itemName))}
         />
       ));
     }
@@ -40,12 +38,13 @@ class Items extends Component {
     }
 
     return (
-      <div style={{ marginTop: "60px" }}>
+      <div style={{ marginTop: "60px", textAlign: 'center' }}>
         <div className="fixed-action-btn">
           <Link to="/items/new" className="btn-floating btn-large green">
             <i className="material-icons">add</i>
           </Link>
         </div>
+        <h5>{this.props.message}</h5>
         {items}
       </div>
     );
@@ -54,6 +53,7 @@ class Items extends Component {
 
 const mapStateToProps = ({ items, auth }) => ({
   items: items.items,
+  message: items.message,
   loading: items.loading,
   error: items.error,
   onList: items.onList,
@@ -62,7 +62,7 @@ const mapStateToProps = ({ items, auth }) => ({
 
 const mapDispatchToProps = dispatch => ({
   onGetItems: () => dispatch(actions.getItems()),
-  onAddToPantry: (currentUser, itemId) => dispatch(actions.addToPantry(currentUser, itemId))
+  onAddToPantry: (currentUser, itemId, items, message) => dispatch(actions.addToPantry(currentUser, itemId, items, message))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Items);
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'itemForm' })(Items));

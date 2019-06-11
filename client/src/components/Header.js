@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 
-class Header extends Component {
-  componentDidMount(){
-    console.log("\n\nthis.props.currentUser Header.js:\n" + this.props.currentUser);
-  }
+export default class Header extends Component {
   renderContent() {
     return this.props.currentUser ?
      [
+        <li key="0">
+          <Link to="/items">
+            <strong>
+              Items
+            </strong>
+          </Link>
+        </li>,
         <li key="1">
           <Link to="/pantry">
             <strong>
@@ -26,7 +29,7 @@ class Header extends Component {
       <nav>
         <div className="nav-wrapper green">
           <Link
-            to={this.props.auth ? '/items' : '/'}
+            to="/"
             className="left brand-logo"
           >
             <div style={{padding: "0 16px"}}>Stay Fresh</div>
@@ -39,7 +42,3 @@ class Header extends Component {
     );
   }
 }
-
-const mapStateToProps = ({ auth }) => ({ auth });
-
-export default connect(mapStateToProps)(Header);

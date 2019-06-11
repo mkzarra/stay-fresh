@@ -17,6 +17,7 @@ import {
 
 const initialState = {
   items: [],
+  message: '',
   loading: false,
   error: null,
   showForm: false
@@ -31,9 +32,9 @@ const deleteItemSuccess = (state, { items }) => updateObject(state, { items, loa
 const deleteItemFail = (state, { error }) => updateObject (state, { error, loading: false });
 const updateItemSuccess = (state, { items }) => updateObject(state, { items, loading: false });
 const updateItemFail = (state, { error }) => updateObject(state, { error, loading: false });
-const addToPantrySuccess = (state, { onList }) => updateObject(state, { onList, loading: false });
+const addToPantrySuccess = (state, { pantry, message }) => updateObject(state, { pantry, message, loading: false });
 const addToPantryFail = (state, { error }) => updateObject(state, { error, loading: false });
-const removeFromPantrySuccess = (state, { onList }) => updateObject(state, { onList, loading: false });
+const removeFromPantrySuccess = (state, { pantry }) => updateObject(state, { pantry, loading: false });
 const removeFromPantryFail = (state, { error }) => updateObject(state, { error, loading: false });
 
 

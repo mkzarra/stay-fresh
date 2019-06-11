@@ -6,6 +6,9 @@ import ItemField from './ItemField';
 import formFields from './formFields';
 
 class ItemForm extends Component {
+  // TODO: remove dates from item creation. "Date Purchased" should be date it added to pantry
+  // CONSIDER: "Expiration" should be determined by a formula based on "Category" and "Storage".
+  // CONSIDER(cont.): "Category and Storage" coverted to inputType: 'select'.
   renderFields() {
     return _.map(formFields, ({ label, name }) =>
       <Field key={name} component={ItemField} type="text" label={label} name={name} />
@@ -14,7 +17,7 @@ class ItemForm extends Component {
 
   render() {
     return (
-      <div>
+      <>
         <form onSubmit={this.props.handleSubmit(this.props.onItemSubmit)}>
           {this.renderFields()}
           <Link to="/items" className="red btn-flat white-text">Cancel</Link>
@@ -22,7 +25,7 @@ class ItemForm extends Component {
             <i className="material-icons right">done</i>
           </button>
         </form>
-      </div>
+      </>
     );
   }
 }

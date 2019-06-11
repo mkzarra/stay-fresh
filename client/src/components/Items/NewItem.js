@@ -15,9 +15,9 @@ class NewItem extends Component {
 
   render() {
     return (
-      <div>
+      <>
         {this.renderContent()}
-      </div>
+      </>
     );
   }
 }
