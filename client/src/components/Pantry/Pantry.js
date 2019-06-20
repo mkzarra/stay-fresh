@@ -28,8 +28,13 @@ class Pantry extends Component {
     
     pantryArr.forEach(p => itemArr.forEach(i => {
        if (p._item === i._id) {
-         return listItems.push({ ...i, key: p._id });
-       }
+         return listItems.push({
+            ...i,
+            key: p._id,
+            datePurchased: p.datePurchased,
+            expiration: p.expiration
+          });
+        }
     }));
 
     if (!loading) {

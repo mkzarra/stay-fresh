@@ -13,7 +13,7 @@ export default ({ itemName, category, storage, datePurchased, exp, onList, id, a
       <h5><strong>{itemName}</strong></h5>
       <p>Storage: {storage}</p>
       <p>Category: {category}</p>
-      <p>Expiration: {translateDate(exp)}</p>
+      {onList ? <p>Expiration: {translateDate(exp)}</p> : null}
       {onList ? <p>Purchased on: {translateDate(datePurchased)}</p> : null}
       <ListAction addToPantry={addToPantry} id={id} removeFromPantry={removeFromPantry} onList={onList} />
       {/* {showEditItemForm} */}
