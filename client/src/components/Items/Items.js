@@ -30,8 +30,6 @@ class Items extends Component {
           itemName={item.itemName}
           storage={item.storage}
           category={item.category}
-          exp={item.expiration}
-          datePurchased={item.datePurchased}
           addToPantry={this.props.handleSubmit(() => this.addItemToPantry(item._id, item.itemName))}
         />
       ));

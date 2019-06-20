@@ -3,7 +3,9 @@ const { Schema } = mongoose;
 
 const pantrySchema = new Schema({
   _item: { type: Schema.Types.ObjectId, ref: 'Item'},
-  _user: { type: Schema.Types.ObjectId, ref: 'User'}
+  _user: { type: Schema.Types.ObjectId, ref: 'User'},
+  datePurchased: Date,
+  expiration: Date
 });
 
 mongoose.model('pantries', pantrySchema);

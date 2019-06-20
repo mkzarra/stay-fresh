@@ -4,9 +4,7 @@ const { Schema } = mongoose;
 const itemSchema = new Schema({
   itemName: String,
   category: String,
-  storage: String,
-  datePurchased: Date,
-  expiration: Date
+  storage: String
 });
 
 mongoose.model('items', itemSchema);

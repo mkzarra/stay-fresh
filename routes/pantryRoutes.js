@@ -29,8 +29,8 @@ module.exports = app => {
   });
 
   app.post('/api/pantry', requireLogin, async (req, res) => {
-    const { _user , _item } = req.body;
-    const pantry = new Pantry({ _user, _item });
+    const { _user , _item, datePurchased, expiration } = req.body;
+    const pantry = new Pantry({ _user, _item, datePurchased, expiration });
     console.log("\n\nPost Item To Pantry Request Body:\n" + JSON.stringify(pantry));
     try {
       await pantry.save();

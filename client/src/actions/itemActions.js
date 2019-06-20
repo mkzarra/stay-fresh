@@ -85,7 +85,7 @@ export const addToPantry = (currentUser, itemId, items, message) => async dispat
   dispatch(itemStart());
   try {
     const res = await axios.post('/api/pantry/', {
-      _user: currentUser, _item: itemId, headers: { Authorization: "Bearer " + currentUser }
+      _user: currentUser, _item: itemId, datePurchased: new Date(), expiration: new Date(Date.now() + 3600000 * 24 * 7), headers: { Authorization: "Bearer " + currentUser }
     });
     dispatch(addToPantrySuccess({ ...res.data._id, ...res.data._user, ...res.data._item, items, message}));
   }

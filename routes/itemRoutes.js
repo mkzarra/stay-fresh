@@ -16,9 +16,9 @@ module.exports = app => {
   });
 
   app.post('/api/items', async (req, res) => {
-    const { itemName, category, storage, datePurchased, expiration } = req.body.item;
-    console.log(`Item Routes:\nitemName: ${itemName}\ncategory: ${category}\nstorage: ${storage}\ndatePurchased: ${datePurchased}\nexpiration: ${expiration}`);
-    const item = new Item({ itemName, category, storage, datePurchased, expiration });
+    const { itemName, category, storage } = req.body.item;
+    console.log(`Item Routes:\nitemName: ${itemName}\ncategory: ${category}\nstorage: ${storage}`);
+    const item = new Item({ itemName, category, storage });
     try {
       await item.save();
       res.status(200).json({ item });
