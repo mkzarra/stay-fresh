@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 import * as actions from '../../actions/';
 
 const itemFormReview = ({ onCancel, formValues, createItem, token, history }) => {
-  console.log("\n\nitemFormReview:\nhistory = " + history);
+  console.log("\n\nitemFormReview:\nhistory = " + JSON.stringify(history));
   const reviewFields = _.map(formFields, ({ name, label }) => (
     <div key={name}>
       <label>{label}</label>

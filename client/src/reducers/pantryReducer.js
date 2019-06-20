@@ -20,7 +20,7 @@ const addToPantrySuccess = (state, { pantry }) => updateObject(state, { pantry, 
 const addToPantryFail = (state, { error }) => updateObject(state, { error, loading: false });
 const getPantrySuccess = (state, { pantry }) => updateObject(state, { pantry, loading: false });
 const getPantryFail = (state, { error }) => updateObject(state, { error, loading: false });
-const removeFromPantrySuccess = (state, { pantry }) => updateObject(state, { pantry, loading: false });
+const removeFromPantrySuccess = (state, { pantry }) => updateObject(state, { pantry });
 const removeFromPantryFail = (state, { error }) => updateObject(state, { error, loading: false });
 
 export default (state = initialState, action) => {

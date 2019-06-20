@@ -19,6 +19,10 @@ class Items extends Component {
   render() {
     let items = <Spinner />
 
+    if (!this.props.items) {
+      items = <h4>Unable to load items</h4>;
+    }
+
     if (!this.props.loading) {
       items = this.props.items.map(item => (
         <Item
@@ -31,10 +35,6 @@ class Items extends Component {
           addToPantry={this.props.handleSubmit(() => this.addItemToPantry(item._id, item.itemName))}
         />
       ));
-    }
-
-    if (!this.props.items) {
-      items = <h4>Unable to load items</h4>;
     }
 
     return (

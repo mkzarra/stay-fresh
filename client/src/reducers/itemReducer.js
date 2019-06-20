@@ -26,7 +26,7 @@ const initialState = {
 const itemStart = (state, action) => updateObject(state, { loading: true });
 const getItemsSuccess = (state, { items }) => updateObject(state, { items, loading: false });
 const getItemsFail = (state, { error }) => updateObject(state, { error, loading: false });
-const createItemSuccess = (state, { items }) => updateObject(state, { items, loading: false });
+const createItemSuccess = (state, { items }) => updateObject(state, { items });
 const createItemFail = (state, { error }) => updateObject(state, { error, loading: false });
 const deleteItemSuccess = (state, { items }) => updateObject(state, { items, loading: false });
 const deleteItemFail = (state, { error }) => updateObject (state, { error, loading: false });

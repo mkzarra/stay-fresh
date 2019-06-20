@@ -13,11 +13,9 @@ export const getPantry = (currentUser, pantry) => async dispatch => {
       currentUser,
       headers: { Authorization: "Bearer " + currentUser }
     });
-    console.log(res.data.pantry);
     dispatch(getPantrySuccess(res.data.pantry));
   }
   catch(error) {
-    console.log(error);
     dispatch(getPantryFail(error));
   }
 }
@@ -30,11 +28,9 @@ export const getPantryItem = (currentUser, pantryItem) => async dispatch => {
       currentUser,
       headers: { Authorization: "Bearer " + currentUser }
     });
-    console.log("\n\ngetPantryItem res.data:\n" + res.data);
     dispatch(getPantrySuccess(res.data.pantry._id));
   }
   catch(error) {
-    console.log("\n\nerror getting pantryItem:\n" + error);
     dispatch(getPantryFail(error))
   }
 }

@@ -39,7 +39,6 @@ export const getItems = () => async dispatch => {
     dispatch(getItemsSuccess(items));
   }
   catch(error) {
-    console.log("\n\n\nGET_ITEMS_ERROR:\n" + error);
     dispatch(getItemsFail(error));
   }
 }
@@ -88,11 +87,9 @@ export const addToPantry = (currentUser, itemId, items, message) => async dispat
     const res = await axios.post('/api/pantry/', {
       _user: currentUser, _item: itemId, headers: { Authorization: "Bearer " + currentUser }
     });
-    console.log("\n\nAdd Item To Pantry:\n" + res.data);
     dispatch(addToPantrySuccess({ ...res.data._id, ...res.data._user, ...res.data._item, items, message}));
   }
   catch(error) {
-    console.log("\nError on addToPantry:\n" + error);
     dispatch(addToPantryFail(error));
   }
 }
@@ -108,7 +105,6 @@ export const removeFromPantry = (currentUser, pantryItem) => async dispatch => {
     dispatch(removeFromPantrySuccess(pantry));
   }
   catch(error) {
-    console.log("\n\nError on Remove from Pantry:\n" + error);
     dispatch(removeFromPantryFail(error));
   }
 }

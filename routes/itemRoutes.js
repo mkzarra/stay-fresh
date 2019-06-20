@@ -21,6 +21,7 @@ module.exports = app => {
     const item = new Item({ itemName, category, storage, datePurchased, expiration });
     try {
       await item.save();
+      res.status(200).json({ item });
     }
     catch(error) {
       console.log("Error creating new item:\n" + error);
