@@ -1,9 +1,8 @@
 .Item {
   text-align: center;
-  width: 40%;
+  min-width: 182px;
   border: 1px solid #eeeeff;
   box-shadow: 0 2px 3px #9999a7;
-  padding: 10px;
-  margin: 10px auto;
-  box-sizing: border-box;
+  margin: 4px 8px;
+  box-sizing: content-box;
 }

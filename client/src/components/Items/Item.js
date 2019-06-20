@@ -9,12 +9,12 @@ export default ({ itemName, category, storage, datePurchased, exp, onList, id, a
   // const showEditItemForm = onList ? <button onClick={() => showEditForm(id)} className="#1de9b6 teal accent-3 white-text btn-flat">Edit</button> : null;
   
   return (
-    <div className={classes.Item}>
+    <div className={[classes.Item, "col", "s1", "m3", "l1", "offset-4"].join(" ")}>
       <h5><strong>{itemName}</strong></h5>
       <p>Storage: {storage}</p>
       <p>Category: {category}</p>
-      {onList ? <p>Expiration: {translateDate(exp)}</p> : null}
       {onList ? <p>Purchased on: {translateDate(datePurchased)}</p> : null}
+      {onList ? <p>Expiration: {translateDate(exp)}</p> : null}
       <ListAction addToPantry={addToPantry} id={id} removeFromPantry={removeFromPantry} onList={onList} />
       {/* {showEditItemForm} */}
     </div>

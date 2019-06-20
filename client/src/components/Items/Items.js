@@ -6,6 +6,7 @@ import { reduxForm } from 'redux-form';
 import * as actions from '../../actions';
 import Item from './Item';
 import Spinner from '../UI/Spinner';
+import classes from './Message.module.css';
 
 class Items extends Component {
   componentDidMount() {
@@ -42,7 +43,7 @@ class Items extends Component {
             <i className="material-icons">add</i>
           </Link>
         </div>
-        <h5>{this.props.message}</h5>
+        <h5 className={classes.Message}>{this.props.message}</h5>
         {items}
       </div>
     );

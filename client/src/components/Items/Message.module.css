@@ -1,0 +1,29 @@
+.Message {
+  -webkit-animation: fadeOut 1s forwards;
+  animation: fadeOut 1s forwards;
+  -webkit-animation-delay: 3s;
+  animation-delay: 3s;
+  color: #114a0add;
+  padding: 10px;
+  text-align: center;
+  }
+
+  @-webkit-keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+
+    to {
+      opacity: 0;
+    }
+  }

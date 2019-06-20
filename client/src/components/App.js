@@ -18,7 +18,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Header currentUser={this.props.currentUser} />
-        <div className="container">
+        <div className="row" style={{ width: "95%" }}>
           <Route exact path="/" component={Landing} />
           <Route exact path="/pantry" component={Pantry} />
           <Route exact path="/items" component={Items} />
