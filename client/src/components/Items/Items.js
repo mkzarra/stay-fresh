@@ -6,7 +6,7 @@ import { reduxForm } from 'redux-form';
 import * as actions from '../../actions';
 import Item from './Item';
 import Spinner from '../UI/Spinner';
-import classes from './Message.module.css';
+// import classes from './Message.module.css';
 
 class Items extends Component {
   componentDidMount() {
@@ -36,6 +36,12 @@ class Items extends Component {
       ));
     }
 
+    // let message = <h5 className={classes.Message}>{this.props.message}</h5>
+
+    // if (!this.props.message) {
+    //   message = null;
+    // }
+
     return (
       <div style={{ marginTop: "60px", textAlign: 'center' }}>
         <div className="fixed-action-btn">
@@ -43,7 +49,7 @@ class Items extends Component {
             <i className="material-icons">add</i>
           </Link>
         </div>
-        <h5 className={classes.Message}>{this.props.message}</h5>
+        {/* {message} */}
         {items}
       </div>
     );
