@@ -21,7 +21,18 @@ export default class Header extends Component {
         </li>,
         <li key="2"><a href="/api/logout">Logout</a></li>
       ]
-    : <li><a href="/auth/google">Login With Google</a></li>
+      : [
+          <li key="0">
+            <Link to="/items">
+              <strong>
+                Items
+              </strong>
+            </Link>
+          </li>,
+          <li key="1">
+            <a href="/auth/google">Login With Google</a>
+          </li>
+      ]
   }
 
   render() {
