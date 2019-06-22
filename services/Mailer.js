@@ -18,7 +18,7 @@ class Mailer extends helper.Mail {
   }
 
   formatAddresses(_user) {
-    return _user.map(({ email }) => helper.Email(email));
+    return helper.Email(_user.email);
   }
 
   addClickTracking() {

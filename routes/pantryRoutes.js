@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const requireLogin = require('../middlewares/requireLogin');
+const Mailer = require('../services/Mailer');
+const warningTemplate = require('../services/templates/warningEmail');
 
 const Pantry = mongoose.model('pantries');
 
@@ -18,8 +20,14 @@ module.exports = app => {
 
   app.get('/api/pantry/:id', requireLogin, async (req, res) => {
     console.log("\n\nGet Pantry Item Request Body:\n" + JSON.stringify(req.params));
+    const { itemName, _id, expiration } = req.body;
+    const email = { itemName, _id, expiration, _user: req.user.id }
+    const mailer = new Mailer(email, warningTemplate(email));
+    /* mailer needs pantry item first. maybe don't make the email like this. 
+    must give pantry id of expiring item and all data associated with pantry id. */
     try {
       const pantry = await Pantry.findById(req.params.id);
+      
       res.status(200).json(({ pantry }));
     }
     catch(error) {
