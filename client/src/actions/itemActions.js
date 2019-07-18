@@ -92,7 +92,7 @@ export const addToPantry = (currentUser, itemId, items, message) => async dispat
       expiration: new Date(Date.now() + 3600000 * 24 * 7),
       headers: { Authorization: "Bearer " + currentUser }
     });
-    dispatch(addToPantrySuccess({ ...res.data._id, ...res.data._user, ...res.data._item, items, message}));
+    dispatch(addToPantrySuccess({ ...res.data._id, ...res.data._user, ...res.data._item, items, message }));
   }
   catch(error) {
     dispatch(addToPantryFail(error));
