@@ -37,20 +37,31 @@ class Pantry extends Component {
         }
     }));
 
+    let ageState = '';
+
     if (!loading) {
-      pantryItems = listItems.map(item => (
-        <Item
-          key={item.key}
-          id={item.key}
-          itemName={item.itemName}
-          storage={item.storage}
-          category={item.category}
-          exp={item.expiration}
-          onList={true}
-          datePurchased={item.datePurchased}
-          removeFromPantry={handleSubmit(() => this.removeFromPantryHandler(item))}
-        />
-      ));
+      pantryItems = listItems.map(item => {
+        const date = new Date();
+        const expire = new Date(item.expiration);
+        const expProximity = expire - date;
+        console.log(expProximity);
+        if (expProximity < 0) ageState = "Expired";
+        else if (expProximity < 3600000 * 24 * 3) ageState = "Aging";
+        return (
+          <Item
+            key={item.key}
+            id={item.key}
+            ageState={ageState}
+            itemName={item.itemName}
+            storage={item.storage}
+            category={item.category}
+            exp={item.expiration}
+            onList={true}
+            datePurchased={item.datePurchased}
+            removeFromPantry={handleSubmit(() => this.removeFromPantryHandler(item))}
+          />
+        )
+      });
     }
 
     if (this.props.currentUser && !pantryArr.length && !loading) {

@@ -99,8 +99,7 @@ export const addToPantry = (currentUser, itemId, items, message) => async dispat
   }
 }
 
-export const removeFromPantry = (currentUser, pantryItem) => async dispatch => {
-  
+export const removeFromPantry = (currentUser, pantryItem) => async dispatch => {  
   dispatch(pantryStart());
   try {
     const res = await axios.delete('/api/pantry/' + pantryItem.key, {

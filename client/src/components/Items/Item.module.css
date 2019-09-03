@@ -6,3 +6,13 @@
   margin: 4px 8px;
   box-sizing: content-box;
 }
+
+.Expired {
+  background: #ff9d9d;
+  border: 1px solid #ffb6b6;
+}
+
+.Aging {
+  background: #fffa74;
+  border: 1px solid #fffdb4;
+}

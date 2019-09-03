@@ -10,9 +10,9 @@ module.exports = app => {
     try {
       const pantry = await Pantry.find({ _user: req.user._id });
       console.log("\n\nPantry items associated with user:\n" + pantry);
-      const mailer = new Mailer("", "");
-      console.log(mailer)
-      mailer.send()
+      // const mailer = new Mailer("", "");
+      // console.log(mailer);
+      // mailer.send();
       res.status(200).json({ pantry });
     }
     catch(error) {
@@ -25,9 +25,9 @@ module.exports = app => {
     console.log("\n\nGet Pantry Item Request Body:\n" + JSON.stringify(req.params));
     const { itemName, _id, expiration } = req.body;
     const email = { itemName, _id, expiration, _user: req.user.id }
-    const mailer = new Mailer(email, warningTemplate(email));
-    console.log(mailer)
-    mailer.send()
+    // const mailer = new Mailer(email, warningTemplate(email));
+    // console.log(mailer);
+    // mailer.send()
     /* mailer needs pantry item first. maybe don't make the email like this. 
     must give pantry id of expiring item and all data associated with pantry id. */
     try {

@@ -9,16 +9,6 @@ class Mailer extends helper.Mail {
     super();
 
     sgMail.setApiKey(keys.sendGridKey);
-//    this.sgApi = sendgrid(keys.sendGridKey);
-    //this.from_email = new helper.Email('no-reply@stayfresh.com');
-    //this._id = pantryItem._id;
-    //this.body = new helper.Content('text/html', content);
-    //this.email = this.formatAddresses(this.user);
-    //this.user = user;
-
-    // //this.addContent(this.body);
-    // this.addClickTracking();
-    // this.add_user();
   }
 
   formatAddresses(user) {
@@ -42,23 +32,14 @@ class Mailer extends helper.Mail {
 
   async send() {
 
-    let msg = {
+    sgMail.send({
       to: 'mkzarra@gmail.com',
       from: 'mkzarra@gmail.com',
       subject: "My very cool email.",
       html: "<p> WOWO! </p>",
-    };
-    sgMail.send(msg);
-  //   const request = this.sgApi.emptyRequest({
-  //     method: 'POST',
-  //     path: '/v3/mail/send',
-  //     body: this.toJSON()
-  //   });
-
-  //   const response = await this.sgApi.API(request);
-  //   return response;
-  // }
-}
+    });
+  
+  }
 }
 
 module.exports = Mailer;

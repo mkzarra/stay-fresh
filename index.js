@@ -8,7 +8,7 @@ require('./models/user');
 require('./models/item');
 require('./models/pantry');
 require('./services/passport.js');
-const { monitorExpiration } = require('./jobs/monitorExpirations')
+const { monitorExpiration } = require('./jobs/monitorExpirations');
 
 mongoose.connect(keys.mongoURI);
 
@@ -33,7 +33,7 @@ if (process.env.NODE_ENV === 'production') {
       res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
     });
   }
-monitorExpiration.start()
+monitorExpiration.start();
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
 console.log("Listening on port " + PORT);
