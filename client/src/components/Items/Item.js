@@ -5,7 +5,6 @@ import translateDate from '../../utilities/translateDate';
 import classes from './Item.module.css';
 
 export default ({ itemName, category, storage, datePurchased, exp, onList, id, addToPantry, removeFromPantry, ageState /* showEditForm */}) => {
-
   // const showEditItemForm = onList ? <button onClick={() => showEditForm(id)} className="#1de9b6 teal accent-3 white-text btn-flat">Edit</button> : null;
   
   return (

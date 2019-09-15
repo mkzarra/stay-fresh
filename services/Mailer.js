@@ -9,31 +9,14 @@ class Mailer extends helper.Mail {
     super();
 
     sgMail.setApiKey(keys.sendGridKey);
+    this.user = user;
   }
 
-  formatAddresses(user) {
-    return helper.Email(user.email);
-  }
-
-  addClickTracking() {
-    const trackingSettings = new helper.TrackingSettings();
-    const clickTracking = new helper.ClickTracking(true, true);
-
-    trackingSettings.setClickTracking(clickTracking);
-    this.addTrackingSettings(trackingSettings);
-  }
-
-  add_user() {
-    const personalize = new helper.Personalization();
-
-    personalize.addTo(this.user);
-    this.addPersonalization(personalize);
-  }
 
   async send() {
 
     sgMail.send({
-      to: 'mkzarra@gmail.com',
+      to: this.user.email,
       from: 'mkzarra@gmail.com',
       subject: "My very cool email.",
       html: "<p> WOWO! </p>",

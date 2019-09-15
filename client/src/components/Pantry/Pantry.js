@@ -37,14 +37,13 @@ class Pantry extends Component {
         }
     }));
 
-    let ageState = '';
-
+    
     if (!loading) {
       pantryItems = listItems.map(item => {
-        const date = new Date();
+        let ageState = '';
+        const date = new Date(Date.now());
         const expire = new Date(item.expiration);
         const expProximity = expire - date;
-        console.log(expProximity);
         if (expProximity < 0) ageState = "Expired";
         else if (expProximity < 3600000 * 24 * 3) ageState = "Aging";
         return (

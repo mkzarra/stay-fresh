@@ -1,12 +1,13 @@
 const cron = require('node-cron');
 const Mailer = require('../services/Mailer');
 
-const monitorExpiration = cron.schedule('57 11 * * Sun', (pantryItem, email) => {
+const monitorExpiration = cron.schedule('00 57 23 * * Sunday', (pantryItem, email) => {
 
   //const shelfLife = pantryItem.expiration - pantryItem.datePurchased;
   //const expProximity = pantryItem.expiration - new Date(Date.now());
-  const mailer = new Mailer("", "");
-  console.log(mailer);
+  const mailer = new Mailer("mkzarra@gmail.com", "");
+  const d = new Date();
+  console.log('onTick:', d);
   mailer.send()
   // // Daily
   // if (expProximity < 60000) console.log("expired");

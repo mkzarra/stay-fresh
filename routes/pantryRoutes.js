@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const requireLogin = require('../middlewares/requireLogin');
 const Mailer = require('../services/Mailer');
 const warningTemplate = require('../services/templates/warningEmail');
+const cache = require('../services/cache');
 
 const Pantry = mongoose.model('pantries');
 
@@ -9,9 +10,16 @@ module.exports = app => {
   app.get('/api/pantry', requireLogin, async (req, res) => {
     try {
       const pantry = await Pantry.find({ _user: req.user._id });
+      // backend cache?
+      const items = pantry.map(p => {
+        const item = cache[p._item];
+        return { ...p, ...item}
+      });
       console.log("\n\nPantry items associated with user:\n" + pantry);
-      // const mailer = new Mailer("", "");
-      // console.log(mailer);
+
+      console.log("\n\nitems:\n", items, "\n\ncache:\n", cache, "\n\n");
+      const mailer = new Mailer(req.user, "");
+      console.log(mailer);
       // mailer.send();
       res.status(200).json({ pantry });
     }
@@ -28,8 +36,8 @@ module.exports = app => {
     // const mailer = new Mailer(email, warningTemplate(email));
     // console.log(mailer);
     // mailer.send()
-    /* mailer needs pantry item first. maybe don't make the email like this. 
-    must give pantry id of expiring item and all data associated with pantry id. */
+    /* mailer needs pantry item first. must give pantry id of
+    expiring item and all data associated with pantry id. */
     try {
       const pantry = await Pantry.findById(req.params.id);
       
