@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const requireLogin = require('../middlewares/requireLogin');
 const Mailer = require('../services/Mailer');
-const pantryEmail = require('../services/templates/pantryEmail');
+const pantryTemplate = require('../services/templates/pantryEmail');
 
 const Pantry = mongoose.model('pantries');
 
@@ -10,9 +10,8 @@ module.exports = app => {
     try {
       const pantry = await Pantry.find({ _user: req.user._id });
       console.log("\n\nPantry items associated with user:\n" + pantry);
-      const pantryTemplate = pantryEmail(pantry);
       
-      const mailer = new Mailer(req.user, pantryTemplate);
+      const mailer = new Mailer(req.user, pantry.map(item => pantryTemplate(item)));
       console.log(mailer);
       mailer.send();
       res.status(200).json({ pantry });
