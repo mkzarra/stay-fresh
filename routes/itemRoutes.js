@@ -8,10 +8,6 @@ module.exports = app => {
   app.get('/api/items', async (req, res) => {
     try {
       const items = await Item.find();
-      for (let item of items) {
-        cache[item._id] = { ...item }
-      }
-      console.log("\n\nitemRoutes - cache:\n", cache);
       res.status(200).json({ items });
     }
     catch(error) {

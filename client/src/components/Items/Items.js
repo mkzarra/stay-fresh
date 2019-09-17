@@ -25,13 +25,13 @@ class Items extends Component {
     }
 
     if (!this.props.loading) {
-      items = this.props.items.map(item => (
+      items = this.props.items.map((item) => (
         <Item
           key={item._id}
           itemName={item.itemName}
           storage={item.storage}
           category={item.category}
-          addToPantry={this.props.handleSubmit(() => this.addItemToPantry(item._id, item.itemName))}
+          addToPantry={this.props.handleSubmit(() => this.addItemToPantry(item))}
         />
       ));
     }
@@ -67,7 +67,7 @@ const mapStateToProps = ({ items, auth }) => ({
 
 const mapDispatchToProps = dispatch => ({
   onGetItems: () => dispatch(actions.getItems()),
-  onAddToPantry: (currentUser, itemId, items, message) => dispatch(actions.addToPantry(currentUser, itemId, items, message))
+  onAddToPantry: (currentUser, item, items, message) => dispatch(actions.addToPantry(currentUser, item, items, message))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'itemForm' })(Items));

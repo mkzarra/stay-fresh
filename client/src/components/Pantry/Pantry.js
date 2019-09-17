@@ -20,26 +20,12 @@ class Pantry extends Component {
   }
 
   render() {
-    const { pantry, items, loading, handleSubmit } = this.props;
+    const { pantry, loading, handleSubmit } = this.props;
+    console.log(pantry);
     let pantryItems = <Spinner />
-    const listItems = [];
-    const pantryArr = pantry ? Object.keys(pantry).map(p => pantry[p]) : [];
-    const itemArr = items ? Object.keys(items).map(i => items[i]) : [];
-    
-    pantryArr.forEach(p => itemArr.forEach(i => {
-       if (p._item === i._id) {
-         return listItems.push({
-            ...i,
-            key: p._id,
-            datePurchased: p.datePurchased,
-            expiration: p.expiration
-          });
-        }
-    }));
-
     
     if (!loading) {
-      pantryItems = listItems.map(item => {
+      pantryItems = pantry.map(item => {
         let ageState = '';
         const date = new Date(Date.now());
         const expire = new Date(item.expiration);
@@ -48,8 +34,8 @@ class Pantry extends Component {
         else if (expProximity < 3600000 * 24 * 3) ageState = "Aging";
         return (
           <Item
-            key={item.key}
-            id={item.key}
+            key={item._id}
+            id={item._id}
             ageState={ageState}
             itemName={item.itemName}
             storage={item.storage}
@@ -63,7 +49,7 @@ class Pantry extends Component {
       });
     }
 
-    if (this.props.currentUser && !pantryArr.length && !loading) {
+    if (this.props.currentUser && !pantry.length && !loading) {
       pantryItems = (
         <>
           <h3>Your pantry is empty!</h3>
@@ -80,7 +66,6 @@ class Pantry extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  items: state.items.items,
   pantry: state.pantry.pantry,
   loading: state.pantry.loading,
   error: state.pantry.error,

@@ -81,13 +81,16 @@ export const updateItem = (itemId, token) => async dispatch => {
   }
 }
 
-export const addToPantry = (currentUser, itemId, items, message) => async dispatch => {
+export const addToPantry = (currentUser, item, items, message) => async dispatch => {
   dispatch(itemStart());
+  console.log("\n\naddToPantry:\n", item);
   try {
     const res = await axios.post('/api/pantry/', {
-      _user:
-      currentUser,
-      _item: itemId,
+      _user: currentUser,
+      _item: item._id,
+      itemName: item.itemName,
+      category: item.category,
+      storage: item.storage,
       datePurchased: new Date(),
       expiration: new Date(Date.now() + 3600000 * 24 * 7),
       headers: { Authorization: "Bearer " + currentUser }
