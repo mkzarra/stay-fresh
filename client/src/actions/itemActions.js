@@ -105,7 +105,7 @@ export const addToPantry = (currentUser, item, items, message) => async dispatch
 export const removeFromPantry = (currentUser, pantryItem) => async dispatch => {  
   dispatch(pantryStart());
   try {
-    const res = await axios.delete('/api/pantry/' + pantryItem.key, {
+    const res = await axios.delete('/api/pantry/' + pantryItem._id, {
       headers: { Authorization: "Bearer " + currentUser }
     });
     const pantry = dispatch(getPantry(res._user));

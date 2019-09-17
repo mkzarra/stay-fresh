@@ -13,7 +13,7 @@ module.exports = app => {
       
       const mailer = new Mailer(req.user, pantry.map(item => pantryTemplate(item)));
       console.log(mailer);
-      mailer.send();
+      // mailer.send();
       res.status(200).json({ pantry });
     }
     catch(error) {
