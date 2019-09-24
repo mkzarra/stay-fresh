@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 
-const cache = require('../services/cache');
-
 const Item = mongoose.model('items');
 
 module.exports = app => {
