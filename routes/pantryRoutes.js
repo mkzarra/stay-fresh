@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const requireLogin = require('../middlewares/requireLogin');
-// const { monitorExpirations } = require('../jobs/monitorExpirations');
 
 const Pantry = mongoose.model('pantries');
 
