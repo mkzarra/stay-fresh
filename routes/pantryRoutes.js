@@ -8,9 +8,8 @@ module.exports = app => {
   app.get('/api/pantry', requireLogin, async (req, res) => {
     try {
       const pantry = await Pantry.find({ _user: req.user._id });
-      console.log("\n\nPantry items associated with user:\n" + pantry);
+      // console.log("\n\nPantry items associated with user:\n" + pantry);
       
-      // monitorExpirations(req.user, pantry);
       res.status(200).json({ pantry });
     }
     catch(error) {
@@ -19,14 +18,7 @@ module.exports = app => {
     }
   });
 
-/*  app.get('/api/pantry/:id', requireLogin, async (req, res) => {
-    console.log("\n\nGet Pantry Item Request Body:\n" + JSON.stringify(req.params));
-    const { itemName, _id, expiration } = req.body;
-    const email = { itemName, _id, expiration, _user: req.user.id }
-    // const mailer = new Mailer(email, warningTemplate(email));
-    // console.log(mailer);
-    // mailer.send()
-    // mailer needs pantry item first. must give pantry id of expiring item and all data associated with pantry id.
+  app.get('/api/pantry/:id', requireLogin, async (req, res) => {
     try {
       const pantry = await Pantry.findById(req.params.id);
       
@@ -36,7 +28,7 @@ module.exports = app => {
       console.log(error);
       res.status(500).send(error);
     }
-  }); */
+  });
 
   app.post('/api/pantry', requireLogin, async (req, res) => {
     const { _user , _item, itemName, category, storage, datePurchased, expiration } = req.body;
