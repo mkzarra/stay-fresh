@@ -6,7 +6,7 @@ const User = mongoose.model('users');
 const Mailer = require('../services/Mailer');
 const pantryTemplate = require('../services/templates/pantryEmail');
 
-const monitorExpiration = cron.schedule('0 14 * * Friday', function() {
+const monitorExpiration = cron.schedule('* * * * Friday', function() {
 
   User.aggregate([{
     $lookup: {
@@ -20,15 +20,12 @@ const monitorExpiration = cron.schedule('0 14 * * Friday', function() {
     if (error) return error;
 
     for (let user of data) {
-      if (user.pantries.length) {
+      if (user.pantries.length > 0) {
         const mailer = new Mailer(user, user.pantries.map(item => pantryTemplate(item)));
         mailer.send();
       }
     }
   });
-}, {
-  scheduled: true,
-  timezone: "America/New_York"
 });
 
 module.exports = {
