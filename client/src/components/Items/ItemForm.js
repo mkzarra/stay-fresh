@@ -3,16 +3,19 @@ import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { Link } from 'react-router-dom';
 import ItemField from './ItemField';
+import SelectInput from './SelectInput';
 import formFields from './formFields';
 
 class ItemForm extends Component {
-  // TODO: remove dates from item creation. "Date Purchased" should be date it added to pantry
   // CONSIDER: "Expiration" should be determined by a formula based on "Category" and "Storage".
   // CONSIDER(cont.): "Category and Storage" coverted to inputType: 'select'.
   renderFields() {
-    return _.map(formFields, ({ label, name }) =>
-      <Field key={name} component={ItemField} type="text" label={label} name={name} />
-    );
+    return _.map(formFields, ({ label, name, type, options }) => {
+      if (type === 'text') return <Field key={name} component={ItemField} type={type} label={label} name={name} />
+      else return <Field key={name} component={SelectInput} label={label} name={name} type={type} options={options}>
+        <SelectInput />
+      </Field>
+    });
   }
 
   render() {
