@@ -19,7 +19,7 @@ class App extends Component {
       <BrowserRouter>
         <Header currentUser={this.props.currentUser} />
         <div className="row" style={{ width: "95%" }}>
-          <Route exact path="/" component={Landing} />
+          <Route exact path="/" component={Landing} currentUser={this.props.currentUser} />
           <Route exact path="/pantry" component={Pantry} />
           <Route exact path="/items" component={Items} />
           <Route path="/items/new" component={NewItem} />
