@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { Link } from 'react-router-dom';
@@ -10,7 +9,8 @@ class ItemForm extends Component {
   // CONSIDER: "Expiration" should be determined by a formula based on "Category" and "Storage".
   // CONSIDER(cont.): "Category and Storage" coverted to inputType: 'select'.
   renderFields() {
-    const inputs = _.map(formFields, ({ label, name, type, options }) => <Field key={name} component={ItemField} type={type} label={label} name={name} data={options} />);
+    const inputs = formFields.map(({ label, name, type, options }) => <Field key={name} name={name} type={type} component={ItemField} options={options} label={label} />);
+    
 
     console.log(inputs);
     return inputs;
@@ -33,8 +33,9 @@ class ItemForm extends Component {
 
 function validate(values) {
   const errors = {};
-  _.each(formFields, ({ name }) => {
-    if (!values[name] || values[name].trim() === "") {
+  formFields.forEach(({ name }) => {
+    console.log(values, name, values[name]);
+    if (!values[name]) {
       errors[name] = name + " is a required field";
     }
   });

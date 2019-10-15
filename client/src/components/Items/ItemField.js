@@ -1,9 +1,10 @@
 import React from 'react';
-import DropdownList from 'react-widgets/lib/DropdownList';
+import Select from 'react-select';
 
-export default ({ data, type, input, label, meta: { error, touched } }) => {
-  let field = <input {...input} style={{ marginBottom: "5px" }} />;
-  // if (type === 'select') field = <DropdownList {...data} {...input} />
+export default ({ type, options, input, label, meta: { error, touched } }) => {
+  console.log('ItemField.js:', input, type);
+  let field = <input {...input} type={type} style={{ marginBottom: "5px" }} />;
+  if (type === 'select-multi') field = <Select {...input} onChange={({ value }) => input.onChange(value)} onBlur={() => input.onBlur(input.value)} options={options} />
 
   return (
     <>

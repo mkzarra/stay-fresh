@@ -15,11 +15,12 @@ class App extends Component {
   }
   
   render() {
+    const { currentUser } = this.props;
     return (
       <BrowserRouter>
-        <Header currentUser={this.props.currentUser} />
+        <Header currentUser={currentUser} />
         <div className="row" style={{ width: "95%" }}>
-          <Route exact path="/" component={Landing} currentUser={this.props.currentUser} />
+          <Route exact path="/" component={Landing} currentUser={currentUser} />
           <Route exact path="/pantry" component={Pantry} />
           <Route exact path="/items" component={Items} />
           <Route path="/items/new" component={NewItem} />
