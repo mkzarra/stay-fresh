@@ -16,12 +16,12 @@ class Pantry extends Component {
   }
 
   componentDidMount() {
-    this.props.onGetPantry(this.props.currentUser);
+    this.props.onGetPantry(this.props.currentUser, this.props.pantry);
   }
 
   render() {
     const { pantry, loading, handleSubmit } = this.props;
-    console.log(pantry);
+    console.log(this.props);
     let pantryItems = <Spinner />
     
     if (!loading) {
@@ -73,7 +73,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onGetPantry: (pantryId, currentUser) => dispatch(actions.getPantry(pantryId, currentUser)),
+  onGetPantry: (currentUser, pantry) => dispatch(actions.getPantry(currentUser, pantry)),
   onRemoveFromPantry: (currentUser, pantryItem) => dispatch(actions.removeFromPantry(currentUser, pantryItem)),
   onUpdateItem: (itemId, currentUser) => dispatch(actions.updateItem(itemId, currentUser)),
   onGetPantryItem: (currentUser, pantryItem) => dispatch(actions.getPantryItem(currentUser, pantryItem))

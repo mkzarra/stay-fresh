@@ -26,7 +26,7 @@ export const deleteItemSuccess = (items) => ({ type: DELETE_ITEM_SUCCESS, items 
 export const deleteItemFail = (error) => ({ type: DELETE_ITEM_FAIL, error });
 export const updateItemSuccess = (items) => ({ type: UPDATE_ITEM_SUCCESS, items });
 export const updateItemFail = (error) => ({ type: UPDATE_ITEM_FAIL, error });
-export const addToPantrySuccess = ({pantry, items, message}) => ({ type: ADD_TO_PANTRY_SUCCESS, pantry, items, message });
+export const addToPantrySuccess = (pantryItem, pantry, message) => ({ type: ADD_TO_PANTRY_SUCCESS, pantryItem, pantry, message });
 export const addToPantryFail = (error) => ({ type: ADD_TO_PANTRY_FAIL, error });
 export const removeFromPantrySuccess = (pantry) => ({ type: REMOVE_FROM_PANTRY_SUCCESS, pantry });
 export const removeFromPantryFail = (error) => ({ type: REMOVE_FROM_PANTRY_FAIL, error });
@@ -83,7 +83,8 @@ export const updateItem = (itemId, token) => async dispatch => {
 
 export const addToPantry = (currentUser, item, items, message) => async dispatch => {
   dispatch(itemStart());
-  console.log("\n\naddToPantry:\n", item);
+  dispatch(pantryStart());
+  console.log("\n\naddToPantry:\n", items);
   try {
     const res = await axios.post('/api/pantry/', {
       _user: currentUser,
@@ -95,7 +96,8 @@ export const addToPantry = (currentUser, item, items, message) => async dispatch
       expiration: new Date(Date.now() + 3600000 * 24 * 7),
       headers: { Authorization: "Bearer " + currentUser }
     });
-    dispatch(addToPantrySuccess({ ...res.data._id, ...res.data._user, ...res.data._item, items, message }));
+    const { _id, _user, _item, itemName, category, storage, datePurchased, expiration } = res.config.data;
+    dispatch(addToPantrySuccess({ _id, _user, _item, itemName, category, storage, datePurchased, expiration }, items, message ));
   }
   catch(error) {
     dispatch(addToPantryFail(error));

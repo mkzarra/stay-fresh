@@ -13,8 +13,9 @@ class Items extends Component {
     this.props.onGetItems();
   }
 
-  addItemToPantry = (itemId, itemName) => {
-    this.props.onAddToPantry(this.props.currentUser, itemId, this.props.items, itemName + " added to pantry");
+  addItemToPantry = (item) => {
+    console.log(item, this.props.items, this.props.pantry);
+    this.props.onAddToPantry(this.props.currentUser, { ...item }, this.props.pantry, item.name + " added to pantry");
   }
 
   render() {
@@ -56,8 +57,9 @@ class Items extends Component {
   }
 }
 
-const mapStateToProps = ({ items, auth }) => ({
+const mapStateToProps = ({ pantry, items, auth }) => ({
   items: items.items,
+  pantry: pantry.pantry,
   message: items.message,
   loading: items.loading,
   error: items.error,
@@ -67,7 +69,7 @@ const mapStateToProps = ({ items, auth }) => ({
 
 const mapDispatchToProps = dispatch => ({
   onGetItems: () => dispatch(actions.getItems()),
-  onAddToPantry: (currentUser, item, items, message) => dispatch(actions.addToPantry(currentUser, item, items, message))
+  onAddToPantry: (currentUser, item, pantry, message) => dispatch(actions.addToPantry(currentUser, item, pantry, message))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'itemForm' })(Items));
