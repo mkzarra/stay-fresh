@@ -1,5 +1,6 @@
 import axios from 'axios';
 import fetchedItems from '../utilities/objectLooper';
+import calculateExpiration from '../utilities/calculateExpiration';
 import {
   ITEMS_START,
   GET_ITEMS_SUCCESS,
@@ -93,7 +94,7 @@ export const addToPantry = (currentUser, item, items, message) => async dispatch
       category: item.category,
       storage: item.storage,
       datePurchased: new Date(),
-      expiration: new Date(Date.now() + 3600000 * 24 * 7),
+      expiration: new Date(Date.now() + calculateExpiration(item.category, item.storage)),
       headers: { Authorization: "Bearer " + currentUser }
     });
     const { _id, _user, _item, itemName, category, storage, datePurchased, expiration } = res.config.data;
