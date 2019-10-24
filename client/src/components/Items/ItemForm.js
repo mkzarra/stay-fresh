@@ -2,18 +2,11 @@ import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { Link } from 'react-router-dom';
 import ItemField from './ItemField';
-// import SelectInput from './SelectInput';
 import formFields from './formFields';
 
 class ItemForm extends Component {
-  // CONSIDER: "Expiration" should be determined by a formula based on "Category" and "Storage".
-  // CONSIDER(cont.): "Category and Storage" coverted to inputType: 'select'.
   renderFields() {
-    const inputs = formFields.map(({ label, name, type, options }) => <Field key={name} name={name} type={type} component={ItemField} options={options} label={label} />);
-    
-
-    console.log(inputs);
-    return inputs;
+    return formFields.map(({ label, name, type, options }) => <Field key={name} name={name} type={type} component={ItemField} options={options} label={label} />);
   }
 
   render() {
@@ -34,7 +27,6 @@ class ItemForm extends Component {
 function validate(values) {
   const errors = {};
   formFields.forEach(({ name }) => {
-    console.log(values, name, values[name]);
     if (!values[name]) {
       errors[name] = name + " is a required field";
     }

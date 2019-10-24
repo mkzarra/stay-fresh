@@ -4,8 +4,8 @@ import ListAction from './ListAction';
 import translateDate from '../../utilities/translateDate';
 import classes from './Item.module.css';
 
-export default ({ itemName, category, storage, datePurchased, exp, onList, id, addToPantry, removeFromPantry, ageState /* showEditForm */}) => {
-  // const showEditItemForm = onList ? <button onClick={() => showEditForm(id)} className="#1de9b6 teal accent-3 white-text btn-flat">Edit</button> : null;
+export default ({ itemName, category, storage, datePurchased, exp, onList, id, addToPantry, removeFromPantry, ageState, showEditForm }) => {
+  const showEditItemForm = onList ? <button onClick={() => showEditForm(id)} className="#1de9b6 teal accent-3 white-text btn-flat">Edit</button> : '';
   
   return (
     <div className={[classes.Item, classes[ageState], "col", "s1", "m3", "l1", "offset-4"].join(" ")}>
@@ -15,7 +15,7 @@ export default ({ itemName, category, storage, datePurchased, exp, onList, id, a
       {onList ? <p>Purchased on: {translateDate(datePurchased)}</p> : null}
       {onList ? <p>Expiration: {translateDate(exp)}</p> : null}
       <ListAction addToPantry={addToPantry} id={id} removeFromPantry={removeFromPantry} onList={onList} />
-      {/* {showEditItemForm} */}
+      {showEditItemForm}
     </div>
   );
 }

@@ -19,6 +19,10 @@ class Pantry extends Component {
     this.props.onGetPantry(this.props.currentUser, this.props.pantry);
   }
 
+  showEditForm = (id) => {
+    console.log(id);
+  }
+
   render() {
     const { pantry, loading, handleSubmit } = this.props;
     console.log(this.props);
@@ -41,6 +45,7 @@ class Pantry extends Component {
             storage={item.storage}
             category={item.category}
             exp={item.expiration}
+            showEditForm={this.showEditForm}
             onList={true}
             datePurchased={item.datePurchased}
             removeFromPantry={handleSubmit(() => this.removeFromPantryHandler(item))}

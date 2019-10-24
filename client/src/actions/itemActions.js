@@ -98,7 +98,7 @@ export const addToPantry = (currentUser, item, items, message) => async dispatch
       headers: { Authorization: "Bearer " + currentUser }
     });
     const { _id, _user, _item, itemName, category, storage, datePurchased, expiration } = res.config.data;
-    dispatch(addToPantrySuccess({ _id, _user, _item, itemName, category, storage, datePurchased, expiration }, items, message ));
+    dispatch(addToPantrySuccess({ _id, _user, _item, itemName, category, storage, datePurchased, expiration }, items, message));
   }
   catch(error) {
     dispatch(addToPantryFail(error));

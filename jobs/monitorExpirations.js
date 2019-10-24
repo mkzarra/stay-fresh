@@ -22,7 +22,7 @@ const monitorExpiration = cron.schedule('00 10 * * Sunday', function() {
     for (let user of data) {
       if (user.pantries.length > 0) {
         const mailer = new Mailer(user, user.pantries.map(item => pantryTemplate(item)));
-        console.log(user.pantries)
+        console.log(user.pantries);
         mailer.send();
       }
     }
