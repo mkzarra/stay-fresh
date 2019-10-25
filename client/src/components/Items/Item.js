@@ -5,7 +5,7 @@ import translateDate from '../../utilities/translateDate';
 import classes from './Item.module.css';
 
 export default ({ itemName, category, storage, datePurchased, exp, onList, id, addToPantry, removeFromPantry, ageState, showEditForm }) => {
-  const showEditItemForm = onList ? <button onClick={() => showEditForm(id)} className="#1de9b6 teal accent-3 white-text btn-flat">Edit</button> : '';
+  const showEditItemForm = onList ? <button onClick={() => showEditForm({ id, itemName, category, storage, datePurchased, exp })} className="#1de9b6 teal accent-3 white-text btn-flat">Edit</button> : '';
   
   return (
     <div className={[classes.Item, classes[ageState], "col", "s1", "m3", "l1", "offset-4"].join(" ")}>
@@ -13,7 +13,7 @@ export default ({ itemName, category, storage, datePurchased, exp, onList, id, a
       <p>Storage: {storage}</p>
       <p>Category: {category}</p>
       {onList ? <p>Purchased on: {translateDate(datePurchased)}</p> : null}
-      {onList ? <p>Expiration: {translateDate(exp)}</p> : null}
+      {onList ? <p>Expires on: {translateDate(exp)}</p> : null}
       <ListAction addToPantry={addToPantry} id={id} removeFromPantry={removeFromPantry} onList={onList} />
       {showEditItemForm}
     </div>

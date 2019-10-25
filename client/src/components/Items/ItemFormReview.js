@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React from 'react';
 import formFields from './formFields';
 import { connect } from 'react-redux';
@@ -7,7 +6,7 @@ import * as actions from '../../actions/';
 
 const itemFormReview = ({ onCancel, formValues, createItem, token, history }) => {
   console.log("\n\nitemFormReview:\nhistory = " + JSON.stringify(history));
-  const reviewFields = _.map(formFields, ({ name, label }) => (
+  const reviewFields = formFields.map(({ name, label }) => (
     <div key={name}>
       <label>{label}</label>
       <div>

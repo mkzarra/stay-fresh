@@ -1,26 +1,33 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import Modal from '../UI/Modal';
+import { reduxForm } from 'redux-form';
 
 class ItemEdit extends Component {
-
-  render() {
-
+  renderContent() {
     return (
-      <div>
-        <Modal>
-          
+      <Modal>
+          <div>
+            <h5><strong>{this.props.itemName}</strong></h5>
+            <p>Storage: {this.props.storage}</p>
+            <p>Category: {this.props.category}</p>
+            <form onSubmit={this.props.handleSubmit(this.props.handleEditSubmit)}>
+              <label>Purchased on</label>
+              <input type="date" placeholder={this.props.datePurchased} />
+              <label>Expires on</label>
+              <input type="date" placeholder={this.props.exp} />
+              <button className="#00e676 green accent-3 btn-flat right white-text" type="submit">Save Changes</button>
+            </form>
+          </div>
         </Modal>
-      </div>
+    )
+  }
+  render() { 
+    return (
+      <>
+        {this.renderContent()}
+      </>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  
-});
-
-const mapDispatchToProps = dispatch => ({
-
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ItemEdit);
+export default reduxForm({ form: 'itemEdit', destroyOnUnmount: false })(ItemEdit);

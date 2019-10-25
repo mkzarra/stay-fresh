@@ -8,6 +8,7 @@ import Landing from './Landing';
 import Pantry from './Pantry/Pantry';
 import Items from './Items/Items';
 import NewItem from './Items/NewItem';
+import ItemEdit from './Items/ItemEdit';
 
 class App extends Component {
   componentDidMount() {
@@ -24,6 +25,7 @@ class App extends Component {
           <Route exact path="/pantry" component={Pantry} />
           <Route exact path="/items" component={Items} />
           <Route path="/items/new" component={NewItem} />
+          <Route path="/pantry/edit" component={ItemEdit} />
         </div>
       </BrowserRouter>
     );

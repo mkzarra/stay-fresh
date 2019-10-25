@@ -45,7 +45,8 @@ export const editPantryItem = (currentUser, pantryItem) => async dispatch => {
       headers: { Authorization: "Bearer " + currentUser }
     });
     dispatch(editPantryItemSuccess(res.config.pantry));
-  } catch(error) {
+  }
+  catch(error) {
     dispatch(editPantryItemFail(error));
   }
 }

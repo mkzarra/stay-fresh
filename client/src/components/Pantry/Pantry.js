@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import Spinner from '../UI/Spinner';
 import Item from '../Items/Item';
 import * as actions from '../../actions';
+import ItemEdit from '../Items/ItemEdit';
 
 class Pantry extends Component {
   removeFromPantryHandler = (pantryItem) => {
@@ -19,8 +20,8 @@ class Pantry extends Component {
     this.props.onGetPantry(this.props.currentUser, this.props.pantry);
   }
 
-  showEditForm = (id) => {
-    console.log(id);
+  showEditForm = (pantryItem) => {
+    this.props.onEditPantryItem(this.props.currentUser, pantryItem);
   }
 
   render() {
@@ -80,7 +81,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = dispatch => ({
   onGetPantry: (currentUser, pantry) => dispatch(actions.getPantry(currentUser, pantry)),
   onRemoveFromPantry: (currentUser, pantryItem) => dispatch(actions.removeFromPantry(currentUser, pantryItem)),
-  onUpdateItem: (itemId, currentUser) => dispatch(actions.updateItem(itemId, currentUser)),
+  onEditPantryItem: (currentUser, pantryItem) => dispatch(actions.editPantryItem(currentUser, pantryItem)),
   onGetPantryItem: (currentUser, pantryItem) => dispatch(actions.getPantryItem(currentUser, pantryItem))
 });
 

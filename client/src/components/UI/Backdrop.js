@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './Backrop.module.css'
+import classes from './Backdrop.module.css'
 
 export default ({ show, clicked }) =>
   show ? <div className={classes.Backdrop} onClick={clicked}></div> : null;
