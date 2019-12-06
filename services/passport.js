@@ -37,6 +37,7 @@ passport.use(
         email: profile.emails[0].value,
         displayName: profile.displayName
       }).save();
+      console.log(profile);
       done(null, user);
     } catch(error) {
         console.error(error);

@@ -5,9 +5,10 @@ import { Link } from 'react-router-dom';
 import Spinner from '../UI/Spinner';
 import Item from '../Items/Item';
 import * as actions from '../../actions';
-import ItemEdit from '../Items/ItemEdit';
 
 class Pantry extends Component {
+  state = { showModal: false }
+
   removeFromPantryHandler = (pantryItem) => {
     this.props.onRemoveFromPantry(this.props.currentUser, pantryItem);
   }
@@ -20,7 +21,17 @@ class Pantry extends Component {
     this.props.onGetPantry(this.props.currentUser, this.props.pantry);
   }
 
-  showEditForm = (pantryItem) => {
+  showModalHandler = () => {
+    console.log(this.state);
+    if (this.state.showModal) {
+      this.setState({ showModal: false});
+    }
+    this.setState({ showModal: true });
+
+    this.props.history.push('/pantry/edit');
+  }
+
+  handleEditSubmit = (pantryItem) => {
     this.props.onEditPantryItem(this.props.currentUser, pantryItem);
   }
 
@@ -46,10 +57,12 @@ class Pantry extends Component {
             storage={item.storage}
             category={item.category}
             exp={item.expiration}
-            showEditForm={this.showEditForm}
+            handleEditSubmit={() => this.handleEditSubmit(item)}
             onList={true}
             datePurchased={item.datePurchased}
             removeFromPantry={handleSubmit(() => this.removeFromPantryHandler(item))}
+            toggleModal={() => this.showModalHandler()}
+            showModal={this.state.showModal}
           />
         )
       });
@@ -63,9 +76,10 @@ class Pantry extends Component {
         </>
       );
     }
+
     return (
       <div style={{ marginTop: "60px", textAlign: "center" }}>
-        {pantryItems}
+        {pantryItems} 
       </div>
     );
   }
