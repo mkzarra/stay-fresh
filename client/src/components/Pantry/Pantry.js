@@ -23,12 +23,7 @@ class Pantry extends Component {
 
   showModalHandler = () => {
     console.log(this.state);
-    if (this.state.showModal) {
-      this.setState({ showModal: false});
-    }
-    this.setState({ showModal: true });
-
-    this.props.history.push('/pantry/edit');
+    this.setState(prevState => ({ showModal: !prevState.showModal }));
   }
 
   handleEditSubmit = (pantryItem) => {
@@ -36,7 +31,7 @@ class Pantry extends Component {
   }
 
   render() {
-    const { pantry, loading, handleSubmit } = this.props;
+    const { pantry, loading } = this.props;
     console.log(this.props);
     let pantryItems = <Spinner />
     
@@ -57,11 +52,11 @@ class Pantry extends Component {
             storage={item.storage}
             category={item.category}
             exp={item.expiration}
-            handleEditSubmit={() => this.handleEditSubmit(item)}
+            handleEditSubmit={this.handleEditSubmit}
             onList={true}
             datePurchased={item.datePurchased}
-            removeFromPantry={handleSubmit(() => this.removeFromPantryHandler(item))}
-            toggleModal={() => this.showModalHandler()}
+            removeFromPantry={this.removeFromPantryHandler}
+            toggleModal={this.showModalHandler}
             showModal={this.state.showModal}
           />
         )

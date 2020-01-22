@@ -3,12 +3,14 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 
+import asyncComponent from './hoc/asyncComponent';
 import Header from './Header';
 import Landing from './Landing';
-import Pantry from './Pantry/Pantry';
-import Items from './Items/Items';
-import NewItem from './Items/NewItem';
-import ItemEdit from './Items/ItemEdit';
+
+const asyncPantry = asyncComponent(() => import('./Pantry/Pantry'));
+const asyncItems = asyncComponent(() => import('./Items/Items'));
+const asyncNewItem = asyncComponent(() => import('./Items/NewItem'));
+const asyncItemEdit = asyncComponent(() => import('./Items/ItemEdit'));
 
 class App extends Component {
   componentDidMount() {
@@ -22,10 +24,10 @@ class App extends Component {
         <Header currentUser={currentUser} />
         <div className="row" style={{ width: "95%" }}>
           <Route exact path="/" component={Landing} currentUser={currentUser} />
-          <Route exact path="/pantry" component={Pantry} />
-          <Route exact path="/items" component={Items} />
-          <Route path="/items/new" component={NewItem} />
-          <Route path="/pantry/edit" component={ItemEdit} />
+          <Route exact path="/pantry" component={asyncPantry} />
+          <Route exact path="/items" component={asyncItems} />
+          <Route path="/items/new" component={asyncNewItem} />
+          <Route path="/pantry/edit" component={asyncItemEdit} />
         </div>
       </BrowserRouter>
     );

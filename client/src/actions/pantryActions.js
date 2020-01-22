@@ -39,6 +39,7 @@ export const getPantryItem = (currentUser, pantryItem) => async dispatch => {
 
 export const editPantryItem = (currentUser, pantryItem) => async dispatch => {
   dispatch(pantryStart());
+  console.log(pantryItem);
   try {
     const res = await axios.patch('/api/pantry' + pantryItem._id, {
       pantryItem,
