@@ -7,7 +7,7 @@ import Item from '../Items/Item';
 import * as actions from '../../actions';
 
 class Pantry extends Component {
-  state = { showModal: false }
+  state = { showModal: '' }
 
   removeFromPantryHandler = (pantryItem) => {
     this.props.onRemoveFromPantry(this.props.currentUser, pantryItem);
@@ -21,9 +21,9 @@ class Pantry extends Component {
     this.props.onGetPantry(this.props.currentUser, this.props.pantry);
   }
 
-  showModalHandler = () => {
+  showModalHandler = (itemId) => {
     console.log(this.state);
-    this.setState(prevState => ({ showModal: !prevState.showModal }));
+    this.setState({ showModal: itemId });
   }
 
   handleEditSubmit = (pantryItem) => {
@@ -56,7 +56,7 @@ class Pantry extends Component {
             onList={true}
             datePurchased={item.datePurchased}
             removeFromPantry={this.removeFromPantryHandler}
-            toggleModal={this.showModalHandler}
+            toggleModal={() =>this.showModalHandler(item._id)}
             showModal={this.state.showModal}
           />
         )

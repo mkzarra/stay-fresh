@@ -17,13 +17,14 @@ class ItemEdit extends Component {
   }
   
   render() { 
+    console.log("handling edit for: ", this.props.itemName)
     return (
       <Modal show={this.props.show}>
         <div>
           <h5><strong>{this.props.itemName}</strong></h5>
           <p>Storage: {this.props.storage}</p>
           <p>Category: {this.props.category}</p>
-          <form onSubmit={() => this.props.handleEditSubmit({ ...this.props.itemName, ...this.props.storage, ...this.props.category, ...this.props.id, ...this.props.datePurchased, ...this.props.exp })}>
+          <form onSubmit={() => this.handleEditSubmit({ ...this.props.itemName, ...this.props.storage, ...this.props.category, ...this.props.id, ...this.props.datePurchased, ...this.props.exp })}>
           {/* <form> */}
             <label>Purchased on</label>
             <input type="date" placeholder={this.props.datePurchased} />

@@ -58,6 +58,7 @@ module.exports = app => {
   app.patch('/api/pantry/:id', requireLogin, async (req, res) => {
     const { expiration, datePurchased } = req.body;
     console.log("\n\nUPDATE PANTRY req.params:\n" + JSON.stringify(req.params));
+    console.log(JSON.stringify(req.body));
     try {
       const pantry = await Pantry.findById(req.params.id);
       pantry.update({ expiration, datePurchased });
