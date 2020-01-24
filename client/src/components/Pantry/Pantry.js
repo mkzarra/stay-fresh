@@ -22,17 +22,16 @@ class Pantry extends Component {
   }
 
   showModalHandler = (itemId) => {
-    console.log(this.state);
     this.setState({ showModal: itemId });
   }
 
   handleEditSubmit = (pantryItem) => {
-    this.props.onEditPantryItem(this.props.currentUser, pantryItem);
+    this.props.onEditPantryItem(this.props.currentUser, pantryItem, this.props.pantry);
+    this.setState({ showModal: '' });
   }
 
   render() {
     const { pantry, loading } = this.props;
-    console.log(this.props);
     let pantryItems = <Spinner />
     
     if (!loading) {
@@ -56,7 +55,7 @@ class Pantry extends Component {
             onList={true}
             datePurchased={item.datePurchased}
             removeFromPantry={this.removeFromPantryHandler}
-            toggleModal={() =>this.showModalHandler(item._id)}
+            toggleModal={() => this.showModalHandler(item._id)}
             showModal={this.state.showModal}
           />
         )

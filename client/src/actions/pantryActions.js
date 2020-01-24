@@ -37,15 +37,15 @@ export const getPantryItem = (currentUser, pantryItem) => async dispatch => {
   }
 }
 
-export const editPantryItem = (currentUser, pantryItem) => async dispatch => {
+export const editPantryItem = (currentUser, pantryItem, pantry) => async dispatch => {
   dispatch(pantryStart());
-  console.log(pantryItem);
   try {
-    const res = await axios.patch('/api/pantry' + pantryItem._id, {
+    const res = await axios.patch('/api/pantry/' + pantryItem.id, {
       pantryItem,
       headers: { Authorization: "Bearer " + currentUser }
     });
-    dispatch(editPantryItemSuccess(res.config.pantry));
+    dispatch(editPantryItemSuccess(res.config.data.pantryItem));
+    dispatch(getPantry(currentUser, pantry))
   }
   catch(error) {
     dispatch(editPantryItemFail(error));

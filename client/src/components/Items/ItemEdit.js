@@ -1,36 +1,40 @@
 import React, { Component } from 'react';
 import Modal from '../UI/Modal';
 import { reduxForm } from 'redux-form';
-import * as actions from '../../actions';
 import { connect } from 'react-redux';
+import * as actions from '../../actions';
+import formatDate from '../../utilities/formatDate';
 
 class ItemEdit extends Component {
-  componentDidMount() {
-    console.log("this.props.show:", this.props.show);
-    console.log("this.props.handleEditSubmit:", this.props.handleEditSubmit);
-    console.log("this.props.handleSubmit:", this.props.handleSubmit);
-    
+  state = {
+    purchase_date: formatDate(this.props.datePurchased),
+    exp_date: formatDate(this.props.exp)
   }
 
-  handleEditSubmit = (pantryItem) => {
-    this.props.onEditPantryItem(this.props.currentUser, pantryItem);
+  handleChange = (event, name) => {
+    this.setState({ [name]: event.target.value });
+  }
+
+  handleSubmit = () => {;
+    const { id, itemName, storage, category, handleEditSubmit } = this.props;
+    const dtPurchased = new Date(this.state.purchase_date);
+    const dtExp = new Date(this.state.exp_date);
+    handleEditSubmit({ id, itemName, storage, category, datePurchased: dtPurchased, expiration: dtExp});
   }
   
-  render() { 
-    console.log("handling edit for: ", this.props.itemName)
+  render() {
     return (
       <Modal show={this.props.show}>
         <div>
           <h5><strong>{this.props.itemName}</strong></h5>
           <p>Storage: {this.props.storage}</p>
           <p>Category: {this.props.category}</p>
-          <form onSubmit={() => this.handleEditSubmit({ ...this.props.itemName, ...this.props.storage, ...this.props.category, ...this.props.id, ...this.props.datePurchased, ...this.props.exp })}>
-          {/* <form> */}
+          <form onSubmit={this.handleSubmit}>
             <label>Purchased on</label>
-            <input type="date" placeholder={this.props.datePurchased} />
+            <input type="date" placeholder={this.state.purchase_date} value={this.state.purchase_date} onChange={(event) => this.handleChange(event, "purchase_date")} />
             <label>Expires on</label>
-            <input type="date" placeholder={this.props.exp} />
-            <button className="#00e676 green accent-3 btn-flat right white-text" type="submit">Save Changes</button>
+            <input type="date" placeholder={this.state.exp_date} value={this.state.exp_date} onChange={(event) => this.handleChange(event, "exp_date")} />
+            <button className="#00e676 green accent-3 btn-flat right white-text" type="button" onClick={this.handleSubmit} >Save Changes</button>
           </form>
         </div>
       </Modal>);
@@ -42,7 +46,7 @@ function mapStateToProps(state) {
     pantry: state.pantry.pantry,
     loading: state.pantry.loading,
     error: state.pantry.error,
-    currentUser: state.auth.currentUser
+    currentUser: state.auth.currentUser,
   }
 }
 
@@ -52,4 +56,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'pantryForm', destroyOnUnmount: false })(ItemEdit));
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'pantryForm' })(ItemEdit));

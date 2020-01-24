@@ -14,7 +14,6 @@ class Items extends Component {
   }
 
   addItemToPantry = (item) => {
-    console.log(item, this.props.items, this.props.pantry);
     this.props.onAddToPantry(this.props.currentUser, { ...item }, this.props.pantry, item.name + " added to pantry");
   }
 
