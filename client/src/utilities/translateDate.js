@@ -14,5 +14,5 @@ export default (date) => {
     "December"
   ];
   const dt = new Date(date);
-  return m[dt.getMonth()] + " " + dt.getDate() + ", " + dt.getFullYear(); 
+  return m[dt.getMonth()] + " " + (dt.getDate() + 1) + ", " + dt.getFullYear(); 
 }
