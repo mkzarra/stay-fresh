@@ -22,7 +22,10 @@ class Pantry extends Component {
   }
 
   showModalHandler = (itemId) => {
-    this.setState({ showModal: itemId });
+    this.setState((prevState) => {
+      console.log(prevState);
+      return prevState.showModal.length ? { showModal: '' } : { showModal: itemId };
+    });
   }
 
   handleEditSubmit = (pantryItem) => {

@@ -1,0 +1,12 @@
+.StayFresh {
+  transition: all 0.2s;
+}
+
+nav p {
+  padding: 0 16px;
+  display: inline;
+}
+
+.StayFresh:hover {
+  background: #00000018;
+}

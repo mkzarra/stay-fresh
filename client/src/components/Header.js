@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import classes from './Header.module.css';
+
 export default class Header extends Component {
   renderContent() {
     return this.props.currentUser ?
@@ -41,9 +43,9 @@ export default class Header extends Component {
         <div className="nav-wrapper green">
           <Link
             to="/"
-            className="left brand-logo"
+            className={[classes.StayFresh, "left brand-logo"].join(" ")}
           >
-            <div style={{padding: "0 16px"}}>Stay Fresh</div>
+            <p>Stay Fresh</p>
           </Link>
           <ul className="right">
             {this.renderContent()}

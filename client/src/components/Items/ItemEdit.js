@@ -15,7 +15,7 @@ class ItemEdit extends Component {
     this.setState({ [name]: event.target.value });
   }
 
-  handleSubmit = () => {;
+  handleSubmit = () => {
     const { id, itemName, storage, category, handleEditSubmit } = this.props;
     const dtPurchased = new Date(this.state.purchase_date);
     const dtExp = new Date(this.state.exp_date);
@@ -24,8 +24,9 @@ class ItemEdit extends Component {
   
   render() {
     return (
-      <Modal show={this.props.show}>
+      <Modal show={this.props.show} modalClose={this.props.modalClose}>
         <div>
+          <p className="right black-text" style={{cursor: 'pointer'}} onClick={this.props.modalClose}>x</p>
           <h5><strong>{this.props.itemName}</strong></h5>
           <p>Storage: {this.props.storage}</p>
           <p>Category: {this.props.category}</p>
