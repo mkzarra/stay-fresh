@@ -17,7 +17,7 @@ class Mailer extends helper.Mail {
     sgMail.send({
       to: this.user.email,
       from: 'mkzarra@gmail.com',
-      subject: "My very cool email.",
+      subject: "Stay Fresh - inventory update",
       html: `      
       <div>
         ${this.content}
