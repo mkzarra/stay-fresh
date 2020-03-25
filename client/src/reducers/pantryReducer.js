@@ -22,12 +22,16 @@ const addToPantrySuccess = (state, { pantry }) => updateObject(state, { pantry, 
 const addToPantryFail = (state, { error }) => updateObject(state, { error, loading: false });
 const getPantrySuccess = (state, { pantry }) => updateObject(state, { pantry, loading: false });
 const getPantryFail = (state, { error }) => updateObject(state, { error, loading: false });
-const removeFromPantrySuccess = (state, { pantry }) => updateObject(state, { pantry });
+const removeFromPantrySuccess = (state, { pantry }) => {
+  console.log('removeFromPantrySuccess: state =', state, 'removeFromPantrySuccess: pantry =', pantry)
+  return updateObject(state, { pantry });
+}
 const removeFromPantryFail = (state, { error }) => updateObject(state, { error, loading: false });
 const editPantryItemSuccess = (state, { pantry }) => updateObject(state, {  ...pantry, loading: false });
 const editPantryItemFail = (state, { error }) => updateObject(state, { error, loading: false });
 
 export default (state = initialState, action) => {
+  console.log('pantry state:', state, '\n\npantry action:', action)
   switch(action.type) {
     case PANTRY_START: return pantryStart(state, action);
     case ADD_TO_PANTRY_SUCCESS: return addToPantrySuccess(state, action);

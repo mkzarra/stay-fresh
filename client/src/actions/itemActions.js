@@ -29,7 +29,10 @@ export const updateItemSuccess = (items) => ({ type: UPDATE_ITEM_SUCCESS, items 
 export const updateItemFail = (error) => ({ type: UPDATE_ITEM_FAIL, error });
 export const addToPantrySuccess = (pantryItem, pantry, message) => ({ type: ADD_TO_PANTRY_SUCCESS, pantryItem, pantry, message });
 export const addToPantryFail = (error) => ({ type: ADD_TO_PANTRY_FAIL, error });
-export const removeFromPantrySuccess = (pantry) => ({ type: REMOVE_FROM_PANTRY_SUCCESS, pantry });
+export const removeFromPantrySuccess = (pantry) => {
+  console.log('[itemActions.js]\nremoveFromPantrySuccess: pantry =', pantry);
+  return ({ type: REMOVE_FROM_PANTRY_SUCCESS, pantry });
+}
 export const removeFromPantryFail = (error) => ({ type: REMOVE_FROM_PANTRY_FAIL, error });
 
 export const getItems = () => async dispatch => {
@@ -64,6 +67,7 @@ export const deleteItem = (itemId, token) => async dispatch => {
     const res = await axios.delete('/api/items' + itemId, {
       headers: { Authorization: "Bearer " + token }
     });
+    console.log('res.data =',res.data);
     dispatch(deleteItemSuccess(res.data.item.id));
   }
   catch(error) {
@@ -105,16 +109,21 @@ export const addToPantry = (currentUser, item, items, message) => async dispatch
   }
 }
 
-export const removeFromPantry = (currentUser, pantryItem) => async dispatch => {  
+export const removeFromPantry = (currentUser, pantryItem, pantryList) => async dispatch => {  
   dispatch(pantryStart());
   try {
-    const res = await axios.delete('/api/pantry/' + pantryItem._id, {
-      headers: { Authorization: "Bearer " + currentUser }
+    console.log(pantryList)
+    const res = await axios.delete('/api/pantry/' + pantryItem, {
+      headers: { Authorization: "Bearer " + currentUser },
+      user_id: currentUser
     });
-    const pantry = dispatch(getPantry(res._user));
+    console.log(res);
+    const pantry = await dispatch(getPantry(currentUser, pantryList));
+    console.log(pantry);
     dispatch(removeFromPantrySuccess(pantry));
   }
   catch(error) {
+    console.log('\n\nremoveFromPantry Error:',error)
     dispatch(removeFromPantryFail(error));
   }
 }

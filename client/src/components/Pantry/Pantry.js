@@ -10,7 +10,11 @@ class Pantry extends Component {
   state = { showModal: '' }
 
   removeFromPantryHandler = (pantryItem) => {
-    this.props.onRemoveFromPantry(this.props.currentUser, pantryItem);
+    const pantryList = this.props.pantry.filter(pItem => {
+      console.log('removeFromPantryHandler: pItem =', pItem);
+      return pItem._id !== pantryItem
+    });
+    this.props.onRemoveFromPantry(this.props.currentUser, pantryItem, pantryList);
   }
 
   handleGetOnePantryItem = (pantryItem) => {
@@ -43,8 +47,12 @@ class Pantry extends Component {
         const date = new Date(Date.now());
         const expire = new Date(item.expiration);
         const expProximity = expire - date;
+
+        console.log(item._id);
+
         if (expProximity < 0) ageState = "Expired";
         else if (expProximity < 3600000 * 24 * 3) ageState = "Aging";
+        
         return (
           <Item
             key={item._id}
@@ -57,11 +65,11 @@ class Pantry extends Component {
             handleEditSubmit={this.handleEditSubmit}
             onList={true}
             datePurchased={item.datePurchased}
-            removeFromPantry={this.removeFromPantryHandler}
+            removeFromPantry={() => this.removeFromPantryHandler(item._id)}
             toggleModal={() => this.showModalHandler(item._id)}
             showModal={this.state.showModal}
           />
-        )
+        );
       });
     }
 
@@ -91,7 +99,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => ({
   onGetPantry: (currentUser, pantry) => dispatch(actions.getPantry(currentUser, pantry)),
-  onRemoveFromPantry: (currentUser, pantryItem) => dispatch(actions.removeFromPantry(currentUser, pantryItem)),
+  onRemoveFromPantry: (currentUser, pantryItem, pantryList) => dispatch(actions.removeFromPantry(currentUser, pantryItem, pantryList)),
   onEditPantryItem: (currentUser, pantryItem) => dispatch(actions.editPantryItem(currentUser, pantryItem)),
   onGetPantryItem: (currentUser, pantryItem) => dispatch(actions.getPantryItem(currentUser, pantryItem))
 });
