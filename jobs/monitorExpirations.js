@@ -6,7 +6,7 @@ const User = mongoose.model('users');
 const Mailer = require('../services/Mailer');
 const pantryTemplate = require('../services/templates/pantryEmail');
 
-const monitorExpiration = cron.schedule('* * * * Thursday', function() {
+const monitorExpiration = cron.schedule('05 20 * * Thursday', function() {
 
   User.aggregate([{
     $lookup: {
