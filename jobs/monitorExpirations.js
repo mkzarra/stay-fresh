@@ -26,7 +26,7 @@ const monitorExpiration = cron.schedule('20 21 * * Wednesday', function() {
       }
     }
   });
-}, "America/New_York");
+}, { timezone: "America/New_York" });
 
 module.exports = {
   monitorExpiration
