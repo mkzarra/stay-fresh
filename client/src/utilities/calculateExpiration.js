@@ -6,10 +6,12 @@ export default function (category, storage) {
       case 'Meat': return day * 3;
       case 'Dairy': return day * 7;
       case 'Produce': return day * 10;
+      case 'Bakery': return day * 5;
       default: return day * 30; 
     }
     case 'Pantry': switch(category) {
       case 'Produce': return day * 10;
+      case 'Bakery': return day * 10;
       default: return day * 365;
     }
     case 'Freezer': return day * 182;
