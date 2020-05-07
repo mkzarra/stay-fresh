@@ -16,7 +16,7 @@ import {
   REMOVE_FROM_PANTRY_SUCCESS,
   REMOVE_FROM_PANTRY_FAIL
 } from './types';
-import { getPantry, pantryStart } from './pantryActions';
+import { pantryStart } from './pantryActions';
 
 export const itemStart = () => ({ type: ITEMS_START });
 export const getItemsSuccess = (items) => ({ type: GET_ITEMS_SUCCESS, items });
@@ -29,10 +29,7 @@ export const updateItemSuccess = (items) => ({ type: UPDATE_ITEM_SUCCESS, items 
 export const updateItemFail = (error) => ({ type: UPDATE_ITEM_FAIL, error });
 export const addToPantrySuccess = (pantryItem, pantry, message) => ({ type: ADD_TO_PANTRY_SUCCESS, pantryItem, pantry, message });
 export const addToPantryFail = (error) => ({ type: ADD_TO_PANTRY_FAIL, error });
-export const removeFromPantrySuccess = (pantry) => {
-  console.log('[itemActions.js]\nremoveFromPantrySuccess: pantry =', pantry);
-  return ({ type: REMOVE_FROM_PANTRY_SUCCESS, pantry });
-}
+export const removeFromPantrySuccess = (pantry) => ({ type: REMOVE_FROM_PANTRY_SUCCESS, pantry });
 export const removeFromPantryFail = (error) => ({ type: REMOVE_FROM_PANTRY_FAIL, error });
 
 export const getItems = () => async dispatch => {
@@ -112,18 +109,14 @@ export const addToPantry = (currentUser, item, items, message) => async dispatch
 export const removeFromPantry = (currentUser, pantryItem, pantryList) => async dispatch => {  
   dispatch(pantryStart());
   try {
-    console.log(pantryList)
-    const res = await axios.delete('/api/pantry/' + pantryItem, {
+    await axios.delete('/api/pantry/' + pantryItem, {
       headers: { Authorization: "Bearer " + currentUser },
       user_id: currentUser
     });
-    console.log(res);
-    const pantry = await dispatch(getPantry(currentUser, pantryList));
-    console.log(pantry);
-    dispatch(removeFromPantrySuccess(pantry));
+
+    dispatch(removeFromPantrySuccess(pantryList));
   }
   catch(error) {
-    console.log('\n\nremoveFromPantry Error:',error)
     dispatch(removeFromPantryFail(error));
   }
 }

@@ -11,9 +11,10 @@ class Pantry extends Component {
 
   removeFromPantryHandler = (pantryItem) => {
     const pantryList = this.props.pantry.filter(pItem => {
-      console.log('removeFromPantryHandler: pItem =', pItem);
       return pItem._id !== pantryItem
     });
+
+    console.log(pantryList);
     this.props.onRemoveFromPantry(this.props.currentUser, pantryItem, pantryList);
   }
 
@@ -41,7 +42,7 @@ class Pantry extends Component {
     const { pantry, loading } = this.props;
     let pantryItems = <Spinner />
     
-    if (!loading) {
+    if (!loading && pantry.length > 0) {
       pantryItems = pantry.map(item => {
         let ageState = '';
         const date = new Date(Date.now());

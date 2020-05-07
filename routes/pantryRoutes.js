@@ -43,8 +43,6 @@ module.exports = app => {
   });
 
   app.delete('/api/pantry/:id', requireLogin, async (req, res) => {
-    console.log("\n\nDELETE PANTRY req.params:\n" + JSON.stringify(req.params));
-    console.log("\n\nDELETE PANTRY req.user_id:\n" + JSON.stringify(req.body.user_id));
     try {
       const pantry = await Pantry.findById(req.params.id);
       const pantryList = await Pantry.find({ _user: req.user_id });

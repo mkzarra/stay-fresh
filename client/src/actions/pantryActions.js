@@ -8,6 +8,7 @@ export const editPantryItemSuccess = (pantry) => ({ type: EDIT_PANTRY_ITEM_SUCCE
 export const editPantryItemFail = (error) => ({ type: EDIT_PANTRY_ITEM_FAIL, error });
 
 export const getPantry = (currentUser, pantry) => async dispatch => {
+  console.log(pantry);
   dispatch(pantryStart());
   try {
     const res = await axios.get('/api/pantry/', {

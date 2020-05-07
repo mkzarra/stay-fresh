@@ -6,7 +6,7 @@ import translateDate from '../../utilities/translateDate';
 import classes from './Item.module.css';
 
 export default ({ itemName, category, storage, datePurchased, exp, onList, id, addToPantry, removeFromPantry, ageState, handleEditSubmit, toggleModal, showModal }) => {
-  const showEditItemForm = onList ? <button onClick={toggleModal} className="#1de9b6 teal accent-3 white-text btn-flat" style={{marginBottom: '12px'}}>Edit</button> : '';
+  const showEditItemForm = onList ? <button type="button" onClick={toggleModal} className="#1de9b6 teal accent-3 white-text btn-flat" style={{marginBottom: '12px'}}>Edit</button> : '';
 
 
   return showModal === id && id ? <ItemEdit id={id} itemName={itemName} category={category} datePurchased={datePurchased} exp={exp} storage={storage}  modalClose={toggleModal} show={showModal === id} handleEditSubmit={handleEditSubmit} />
