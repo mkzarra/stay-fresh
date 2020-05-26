@@ -18,11 +18,14 @@ class Pantry extends Component {
     this.props.onRemoveFromPantry(this.props.currentUser, pantryItem, pantryList);
   }
 
-  handleGetOnePantryItem = (pantryItem) => {
-    this.props.getPantryItem(this.props.currentUser, pantryItem);
+  handleGetPantryItemByName = (itmName) => {
+    this.props.pantry.filter(pantryItem => pantryItem.itemName === itmName);
   }
 
   componentDidMount() {
+    if (this.props.pantry && this.props.pantry.length > 0) {
+      return this.props.pantry;
+    }
     this.props.onGetPantry(this.props.currentUser, this.props.pantry);
   }
 
@@ -69,6 +72,7 @@ class Pantry extends Component {
             removeFromPantry={() => this.removeFromPantryHandler(item._id)}
             toggleModal={() => this.showModalHandler(item._id)}
             showModal={this.state.showModal}
+            getItemDetails={() => this.handleGetPantryItemByName(item.itemName)}
           />
         );
       });
